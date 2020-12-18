@@ -61,14 +61,14 @@ In addition to the product components, the following objects are installed:
 	
 ## Accessing the container images
 
-You can access the HCL Workload Automation chart and container images from the Entitled Registry. See [Create the secret](#createthesecret) for more information about accessing the registry. The images are as follows:
+You can access the HCL Workload Automation chart and container images from the Entitled Registry. See [Create the secret](#create-the-secret) for more information about accessing the registry. The images are as follows:
 
 
 
 
-* hclcr.io/wa/hcl-workload-automation-agent-dynamic:9.5.0.02.20200727
-* hclcr.io/wa/hcl-workload-automation-server:9.5.0.02.20200727
-* hclcr.io/wa/hcl-workload-automation-console:9.5.0.02.20200727
+* hclcr.io/wa/hcl-workload-automation-agent-dynamic:9.5.0.03.20201228
+* hclcr.io/wa/hcl-workload-automation-server:9.5.0.03.20201228
+* hclcr.io/wa/hcl-workload-automation-console:9.5.0.03.20201228
 
  
 ## Prerequisites
@@ -79,6 +79,7 @@ Before you begin the deployment process, ensure your environment meets the follo
 - OpenSSL
 - Grafana and Prometheus for monitoring dashboard
 - Jetstack cert-manager
+- Ingress controller: to manage the ingress service, ensure an ingress controller is corrected configured. For example, to configure an NGINX ingress controller, refer to [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/).
 - Kubernetes version: >=1.15 (no specific APIs need to be enabled)
 - `kubectl` command-line tool to control Kubernetes clusters 
 - API key for accessing HCL Entitled Registry: `hcl.cr.io`
@@ -129,7 +130,12 @@ If you already have a license then you can proceed to obtain your entitlment key
 
 Obtain your entitlement key and store it on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/). Using a Kubernetes secret allows you to securely store the key on your cluster and access the registry to download the chart and product images. 
 
-1. Access the entitled registry. Contact your HCL sales representative for the login details required to access the HCL Entitled Registry.
+1. Access the entitled registry. 
+
+  Contact your HCL sales representative for the login details required to access the HCL Entitled Registry.
+
+
+
 
 3. To create a pull secret for your entitlement key that enables access to the entitled registry, run the following command:
 
@@ -162,7 +168,7 @@ Cert-manager is a Kubernetes addon that automates the management and issuance of
 
    a.   `.\openssl.exe genrsa -out ca.key 2048`
     
-   b.   `.\openssl.exe req -x509 -new -nodes -key ca.key -subj "/CN=WA_ROOT_CA" -days 3650 -out ca.crt -config .\openssl.cnf`
+   b.   `.\openssl.exe req -x509 -new -nodes -key ca.key -subj "/CN=WA_ROOT_CA" -days 3650 -out ca.crt`
 	
 4.  Create the CA key pair secret by running the following command:
 
@@ -175,10 +181,10 @@ Cert-manager is a Kubernetes addon that automates the management and issuance of
         apiVersion: cert-manager.io/v1alpha2
         kind: Issuer
         metadata:
-           labels:
-             app.kubernetes.io/name: cert-manager
-         name: wa-ca-issuer
-         namespace: <workload_automation_namespace>
+          labels:
+            app.kubernetes.io/name: cert-manager
+          name: wa-ca-issuer
+          namespace: <workload_automation_namespace>
         spec:
           ca:
             secretName: ca-key-pair
@@ -443,7 +449,7 @@ The following table lists the configurable parameters of the chart relative to t
 | waagent.image.pullPolicy                         | image pull policy                                                                                                                                                                                                                                                    | yes            | Always                           | Always                           |
 | waagent.agent.name                               | Agent display name                                                                                                                                                                                                                                                   | yes            | WA_AGT                           | WA_AGT                           |
 | waagent.agent.tz                                 | If used, it sets the TZ operating system environment variable                                                                                                                                                                                                        | no             | America/Chicago                  |                                  |
-| waagent.agent.networkpolicyEgress                                 | Customize egress policy. If empty, no egress policy is defined                                                                                                                                                                                                        | no             | See [Network enablement](#network-enablement) 
+| waagent.agent.networkpolicyEgress                                 | Customize egress policy. If empty, no egress policy is defined                                                                                                                                                                                                        | no             | See [Network enablement](#network-enablement)                  |                                  |
 | waagent.agent.dynamic.server.mdmhostname         | Hostname or IP address of the master domain manager                                                                                                                                                                                                                  | no (mandatory if a server is not present inside the same namespace)            | wamdm.demo.com                   |                                  |
 | waagent.agent.dynamic.server.port                | The HTTPS port that the dynamic agent must use to connect to the master domain manager                                                                                                                                                                               | no             | 31116                            | 31116                            |
 | waagent.agent.dynamic.pools*                      | The static pools of which the Agent should be a member                                                                                                                                                                                                               | no             | Pool1, Pool2                     |                                  |
@@ -461,7 +467,8 @@ The following table lists the configurable parameters of the chart relative to t
 | waagent.persistence.dataPVC.storageClassName     | The name of the Storage Class to be used. Leave empty to not use a storage class                                                                                                                                                                                     | no             | nfs-dynamic                      |                                  |
 | waagent.persistence.dataPVC.selector.label       | Volume label to bind (only limited to single label)                                                                                                                                                                                                                  | no             | my-volume-label                  |                                  |
 | waagent.persistence.dataPVC.selector.value       | Volume label value to bind (only limited to single value)                                                                                                                                                                                                            | no             | my-volume-value                  |                                  |
-| waagent.persistence.dataPVC.size                 | The minimum size of the Persistent Volume 
+| waagent.persistence.dataPVC.size                 | The minimum size of the Persistent Volume                                                                                                                                                                                                                            | no             | 2Gi                              | 2Gi                              |
+
 
 >\(*) **Note:** for details about static agent workstation pools, see: 
 [Workstation](https://workloadautomation.hcldoc.com/help/topic/com.hcl.wa.doc_9.5/distr/src_ref/awsrgworkstationconcept.htm).
@@ -513,7 +520,7 @@ The following table lists the configurable parameters of the chart relative to t
 | waconsole.console.exposeServiceType            | The network enablement configuration implemented. Valid values: LOAD BALANCER or INGRESS   | yes           |     INGRESS                          |                                                | 
 | waconsole.console.exposeServiceAnnotation      | Annotations of either the resource of the service or the resource of the ingress, customized in accordance with the cloud provider   | yes           |                               |                     |
 | waconsole.console.networkpolicyEgress      | Customize egress policy. If empty, no egress policy is defined | no |See [Network enablement](#network-enablement)|
-| waconsole.console.ingressHostName      | The virtual hostname defined in the DNS used to reach the Console.   | yes, only if the network enablement implementation is INGRESS           |                               |                     | 
+| waconsole.console.ingressHostName      | The virtual nostname defined in the DNS used to reach the Console.   | yes, only if the network enablement implementation is INGRESS           |                               |                     | 
 | waconsole.console.ingressSecretName      | The name of the secret to store certificates used by ingress. If not used, leave it empty.   | yes, only if the network enablement implementation is INGRESS.     |      |  wa-console-ingress-secret | 	
 
 
@@ -572,7 +579,7 @@ The following table lists the configurable parameters of the chart and an exampl
 | waserver.persistence.dataPVC.size                 | The minimum size of the Persistent Volume                                                                                                                                                                                                                                     | no            | 5Gi                              | 5Gi                                              |
 | waserver.server.exposeServiceType            | The network enablement configuration implemented. Valid values: LOAD BALANCER or INGRESS   | yes           |     INGRESS                          |                                                | 
 | waserver.server.exposeServiceAnnotation      | Annotations of either the resource of the service or the resource of the ingress, customized in accordance with the cloud provider   | yes           |                               |                     |
-| waserver.server.networkpolicyEgress                                | Customize egress policy. If empty, no egress policy is defined                                                                                                                                                                                                                  | no            | See [Network enablement](#network-enablement)                  |                                                  |	
+| waserver.server.networkpolicyEgress                                | Customize egress policy. If empty, no egress policy is defined                                                                                                                                                                                                                  | no            | See [Network enablement](#network-enablement)                  |                                                  |
 | waserver.server.ingressHostName      | The virtual hostname defined in the DNS used to reach the Server   | yes, only if the network enablement implementation is INGRESS            |                               |                     | 
 | waserver.server.ingressSecretName      | The name of the secret to store certificates used by the ingress. If not used, leave it empty   | yes, only if the network enablement implementation is INGRESS     |      |  wa-server-ingress-secret | 
 | waserver.server.licenseServerId      |  The ID of the license server  | yes           |            |                     | 
@@ -799,7 +806,7 @@ If you use customized certificates, `useCustomizedCert:true`, you must create a 
  For the master domain manager, type the following command:
  
  ```
- kubectl create secret generic waserver-cert-secret --from-file=TWSClientKeyStore.kdb --from-file=TWSClientKeyStore.sth --from-file=TWSClientKeyStoreJKS.jks --from-file=TWSClientKeyStoreJKS.sth --from-file=TWSServerKeyFile.jks --from-file=TWSServerKeyFile.jks.pwd --from-file=TWSServerTrustFile.jks --from-file=TWSServerTrustFile.jks.pwd -n <workload-automation-namespace>   
+ kubectl create secret generic waconsole-cert-secret --from-file=TWSServerKeyFile.jks --from-file=TWSServerKeyFile.jks.pwd --from-file=TWSServerTrustFile.jks --from-file=TWSServerTrustFile.jks.pwd --from-file=ltpa.keys -n <workload_automation_namespace>   
  ``` 
 For the Dynamic Workload Console, type the following command:
 
@@ -841,7 +848,7 @@ You can extend HCL Workload Automation with a number of out-of-the-box integrati
 
 To download the plug-ins:
 
-1) Download the plug-ins from [Automation Hub](https://www.yourautomationhub.io/) to your <plug-ins_folder> folder on your machine. Ensure that this folder contains only .jar files related to plug-ins.
+1) Download the plug-ins from [Automation Hub](https://www.yourautomationhub.io/) and extract the contents to a folder on the local computer.
 
 2) From your local computer, go to the <plug-ins_folder> folder and run the following command:
 
@@ -866,7 +873,7 @@ where, <master_pod> is the workstation with the master role. The default is \<re
 
 **NOTE**:
 
-A Kubernetes plug-in is available on Automation Hub. It enables you to run and automate Kubernetes jobs: [https://www.yourautomationhub.io/detail/kubernetes](https://www.yourautomationhub.io/detail/kubernetes). Follow the steps in the previous procedure to download and install the plug-in.
+A Kubernetes job plug-in is available on Automation Hub. It enables you to automate the execution of Kubernetes jobs. [https://www.yourautomationhub.io/detail/kubernetes_9_5_0_02](https://www.yourautomationhub.io/detail/kubernetes_9_5_0_02). Follow the steps in the previous procedure to download and install the plug-in.
 
 ## Storage
 
@@ -900,7 +907,7 @@ Pre-create a persistent volume. If you configure the label=value pair described 
 	* **persistence.enabled:true**
 	* **persistence.useDynamicProvisioning:false**
 
-> Note: By configuring the following two parameters, the persistent volume claim is automatically generated. Ensure that this label=value pair is inserted in the persistent volume you created: 
+> Note: By configuring the following two parameters, the persistent volum claim is automatically generated. Ensure that this label=value pair is inserted in the persistent volume you created: 
 
 - \<wa-component>.persistence.dataPVC.selector.label
 - \<wa-component>.persistence.dataPVC.selector.value
