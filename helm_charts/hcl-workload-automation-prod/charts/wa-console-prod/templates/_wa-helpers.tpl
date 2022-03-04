@@ -41,9 +41,8 @@ Returns the metering information
 {{- define "wa.metering" -}}
 productName: "HCL Workload Automation"
 productID: "HWA"
-productVersion: "9.5"
+productVersion: "10.1"
 productMetric: "TEN_MONTHLY_JOBS"
-productChargedContainers: "All"
 {{- end -}}
 {{/*
 Returns the node affinity

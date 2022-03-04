@@ -40,18 +40,9 @@ Returns the metering information
 */}}
 {{- define "wa.metering" -}}
 productName: "HCL Workload Automation"
-{{ if (eq .Values.licenseType "PERJOB") }}
 productID: "HWA"
-{{ else }}
-productID: "@PRODUCT.ID.PVU@"
-{{ end }}
-productVersion: "9.5"
-{{ if (eq .Values.licenseType "PERJOB") }}
+productVersion: "10.1"
 productMetric: "TEN_MONTHLY_JOBS"
-{{ else }} 
-productMetric: "PROCESSOR_VALUE_UNIT"
-{{ end }}
-productChargedContainers: "All"
 {{- end -}}
 {{/*
 Returns the node affinity
@@ -138,3 +129,4 @@ at the end of the name. Then, if the obtained name is still too long, also the r
     {{- $longName -}}   
   {{- end -}}
 {{- end -}}
+	
