@@ -79,9 +79,9 @@ You can access the HCL Workload Automation chart and container images from the E
 
 
 
-* hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220304
-* hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220304
-* hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220304
+* hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220512
+* hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220512
+* hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220512
 
  
 ## Prerequisites
@@ -462,6 +462,9 @@ The following procedure describes how you can create and customize a *configMap*
 	
 Proceed to deploy the product components. After the deployment, you can include jobs related to these integrations when defining your workload.	
 
+### AIDA configuration
+To configure AIDA, please see the following readme: [AIDA](aida/readme.md)
+
 ### Installing custom integrations
 
 In addition to the integrations available on Automation Hub, you can extend Workload Automation with custom plug-ins that you create. For information about creating a custom plug-in, see [Workload Automation Lutist Development Kit](https://www.yourautomationhub.io/toolkit) on Automation Hub.
@@ -576,7 +579,7 @@ To deploy the HCL Workload Automation components, ensure you have first download
 
         helm pull <repo_name>/hcl-workload-automation-prod
 	
-
+>**Note:** If you want to download a specific version of the chart use the --version option in the helm pull command.
       
      
 **Update your chart:**
@@ -1535,6 +1538,9 @@ In case of problems related to deploying the product with containers, see [Troub
 3. Save the changes to the file.   
 
 ### Change history
+
+## Added June 2022
+* Vulnerabilities fixes
 
 ## Added March 2022
 * Workload Automation 10.1 official support released.
