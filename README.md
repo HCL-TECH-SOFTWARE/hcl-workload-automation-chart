@@ -79,9 +79,9 @@ You can access the HCL Workload Automation chart and container images from the E
 
 
 
-* hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220304
-* hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220304
-* hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220304
+* hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220512
+* hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220512
+* hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220512
 
  
 ## Prerequisites
@@ -1538,6 +1538,9 @@ In case of problems related to deploying the product with containers, see [Troub
 3. Save the changes to the file.   
 
 ### Change history
+
+## Added June 2022
+* Vulnerabilities fixes
 
 ## Added March 2022
 * Workload Automation 10.1 official support released.
