@@ -1541,6 +1541,7 @@ In case of problems related to deploying the product with containers, see [Troub
 
 ## Added June 2022
 * Vulnerabilities fixes
+* Support for Kubernetes 1.22
 
 ## Added March 2022
 * Workload Automation 10.1 official support released.
