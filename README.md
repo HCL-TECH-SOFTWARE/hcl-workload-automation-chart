@@ -79,9 +79,9 @@ You can access the HCL Workload Automation chart and container images from the E
 
 
 
-* hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220304
-* hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220304
-* hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220304
+* hclcr.io/wa/hcl-workload-automation-agent-dynamic:9.5.0.06.20220617
+* hclcr.io/wa/hcl-workload-automation-server:9.5.0.06.20220617
+* hclcr.io/wa/hcl-workload-automation-console:9.5.0.06.20220617
 
  
 ## Prerequisites
