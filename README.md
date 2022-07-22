@@ -79,9 +79,9 @@ You can access the HCL Workload Automation chart and container images from the E
 
 
 
-* hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220512
-* hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220512
-* hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220512
+* hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220722
+* hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220722
+* hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220722
 
  
 ## Prerequisites
@@ -1416,6 +1416,24 @@ On Kubernetes native, UID 999 is used.
 ### Persistent volume storage access modes
 
 HCL Workload Automation supports only ReadWriteOnce (RWO) access mode. The volume can be mounted as read-write by a single node.
+
+## Report CLI 	
+
+To run reports in batch mode, perform the following steps:
+
+1. Browse to `/home/wauser/wadata/config/report`
+2. Open the **common.properties** file in a flat-text editor.
+3. Edit the file inserting the information for your database. Instructions on editing the file are provided in the file itself. 
+
+The Report CLI is now ready for running. To start the Report CLI, browse to `/opt/wa/report` and run the following command: `./reportcli.sh`
+
+Consider the following example:
+
+`./reportcli.sh -p reports/templates/jrh.properties -r my_report -commonPropsFile /home/wauser/wadata/config/report`
+
+For more information, see: 
+
+[Running batch reports from the command line interface](https://help.hcltechsw.com/workloadautomation/v101/distr/src_ref/awsrgbatchreps.html)
 
 ## Metrics monitoring 
 
