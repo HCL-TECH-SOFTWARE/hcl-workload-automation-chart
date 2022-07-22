@@ -13,7 +13,7 @@ global:
   defaultShardCount: 1
   enablePrometheus: true
   customPluginImageName: 
-  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.1.0.00.20220512
+  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.1.0.00.20220722
   configPlugins:
   customLabels:
     - name: "environment"
@@ -61,7 +61,7 @@ waagent:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-agent-dynamic
-    tag: 10.1.0.00.20220512
+    tag: 10.1.0.00.20220722
   persistence:
     dataPVC:
       name: data
@@ -175,7 +175,7 @@ waconsole:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-console
-    tag: 10.1.0.00.20220512
+    tag: 10.1.0.00.20220722
   persistence:
     dataPVC:
       name: data
@@ -225,7 +225,7 @@ waserver:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-server
-    tag: 10.1.0.00.20220512
+    tag: 10.1.0.00.20220722
   persistence:
     dataPVC:
       name: data
@@ -275,6 +275,9 @@ waserver:
       cpu: 1
       memory: 4Gi
   server:
+    jobLog:
+      type: memory
+      corePoolSize: 50
     ftaName: 
     agentName: WA_SAGT
     certSecretName: waserver-cert-secret
@@ -359,7 +362,7 @@ wafileproxy:
   replicaCount: 1
   image:
     repository: hclcr.io/wa/hcl-workload-automation-fileproxy
-    tag: 10.1.0.00.20220512
+    tag: 10.1.0.00.20220722
     pullPolicy: Always
   nameOverride: ""
   fullnameOverride: ""
