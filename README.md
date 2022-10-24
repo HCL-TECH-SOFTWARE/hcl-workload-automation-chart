@@ -1239,6 +1239,9 @@ Access the master (server or pod) and extract the CA root certificate and, to ad
 		  tls.crt: <base64_encoded_certificate>
 		type: Opaque
 
+### Defining a z/OS engine in the Z connector from a Dynamic Workload Console deployed on Cloud
+
+To perform this operation, see the information available at [Defining a z/OS engine in the Z connector](https://help.hcltechsw.com/workloadautomation/v101/distr/src_ad/awsadtmpltconnfactory.html). The information at this link also applies to the cloud environment. If you want to apply the same configuration to all instances, create a configMap containing all xml files and use the `waconsole.console.libConfigName` parameter to provide the name of your  configMap.
 
 
 ### Scaling the product 
