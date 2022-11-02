@@ -148,9 +148,9 @@ AIDA requires:
 
  -  HCL Workload Automation V10.1 exposed metrics. For information about HCL Workload Automation exposed metrics, see [Exposing metrics to monitor your workload](https://help.hcltechsw.com/workloadautomation/v101/distr/src_ref/awsrgmonprom.html).   
  -  API key for accessing the Entitled Registry: hclcr.io
- -  External container image for Elasticsearch (OpenSearch 2.3.0)
+ -  External container image for OpenSearch 2.3.0 (an Elasticsearch based technology)
  -  Supported browsers are: 
-	- Google Chrome 67.0.3396.99 or higher
+    - Google Chrome 67.0.3396.99 or higher
     - Mozilla Firefox 61.0.1 or higher 
     - Microsoft Edge 79 or higher
 
@@ -315,6 +315,8 @@ The following table lists the global configurable parameters of the chart and th
 |serviceAccountName|The name of the serviceAccount to use. The HCL Workload Automation default service account (wauser) and not the default cluster account| no | wauser | default
 |aidaEngineLogLevel |Log level in AIDA. It can be DEBUG, INFO, ERROR, WARNING, CRITICAL | yes |"INFO"  |"INFO"  |
 |redisPwd|aida-redis passowrd  | yes |"foobared"  |"foobared" |
+|defaultShardCount | The default number of OpenSearch shards |yes | 1 |1  |	
+|defaultReplicaCount | The default number of OpenSearch replicas |yes | 0 |0  |
 
 
 - ### AIDA parameters
@@ -338,6 +340,9 @@ The following tables list the configurable parameters of the chart relative to e
 |autoscaling.minReplicas |The minimum number of Pods | no  | 1 |1 |
 |autoscaling.maxReplicas |The maximum number of Pods | no  | 10 |10 |
 |autoscaling.targetMemoryUtilizationPercentage |The value in percentage of memory utilization that each Pod should have | no  | 80 |80 |
+|pastMillis |The number of milliseconds that AIDA waits before analyzing predictions to detect alerts  | yes  | 86400000 |86400000 |
+|toleranceMillis |The maximum number of milliseconds between a real data point and a predicted data point in oder to consider them close and, therefore, usable by the alert detection algorithm   | yes  | 240000 |240000 |
+|webConcurrency |Number of workers of the web server. The more they are, the more there is parallelism (and the more RAM is consumed). Suggested value: 2 x <number of cores> + 1 | yes  | 6 |6 |	
 	
  ### [aida-es parameters](#aida-es-parameters)
  	
@@ -379,6 +384,8 @@ The following tables list the configurable parameters of the chart relative to e
 |resources.limits.memory |The maximum memory requested to run | yes  |4Gi  |4Gi |
 |resources.requests.cpu |The minimum CPU requested to run | yes  | 0.5 |0.5 |
 |resources.requests.memory |The minimum memory requested to run | yes  |0.5Gi  |0.5Gi |
+|maximumDaysOfOlderPredictions |How many days of predictions to keep in the past | yes  |14 |14 |
+|maximumDaysOfOlderData |How many days of metrics data to keep in the past | yes  |400 |400|
 
 ### [aida-email parameters](#aida-email-parameters)
  	
@@ -435,6 +442,8 @@ The following tables list the configurable parameters of the chart relative to e
 |resources.limits.memory |The maximum memory requested to run | yes  |4Gi  |4Gi |
 |resources.requests.cpu |The minimum CPU requested to run | yes  | 0.5 |0.5 |
 |resources.requests.memory |The minimum memory requested to run | yes  |0.5Gi  |0.5Gi |
+|prophetOrchestrator | The number of minutes between subsequent training(s) | yes  | "{\"schedule\": 1440}" | "{\"schedule\": 1440}"|
+|daysOfPrediction |How many days to predict in the future| yes  |1  |1 |
 
 ### [aida-predictor parameters](#aida-predictor-parameters)
 	
@@ -455,6 +464,7 @@ The following tables list the configurable parameters of the chart relative to e
 |autoscaling.minReplicas |The minimum number of Pods | no  |1  |1 |
 |autoscaling.maxReplicas |The maximum number of Pods | no  | 10 |10 |
 |autoscaling.targetMemoryUtilizationPercentage |The value in percentage of memory utilization that each Pod should have | no  |80  |80 |
+|webConcurrency |Number of workers of the web server. The more they are, the more there is parallelism (and the more RAM is consumed). Suggested value: 2 x <number of cores> + 1 | yes  | 6 |6 |
 
 ### [aida-redis parameters](#aida-redis-parameters)
  	
