@@ -76,12 +76,17 @@ From `LoadBalancer` to `Routes`
 
 You can access the HCL Workload Automation chart and container images from the Entitled Registry. See [Create the secret](#create-the-secret) for more information about accessing the registry. The images are as follows:
 
-
-
-
 * hclcr.io/wa/hcl-workload-automation-agent-dynamic:10.1.0.00.20220722
 * hclcr.io/wa/hcl-workload-automation-server:10.1.0.00.20220722
 * hclcr.io/wa/hcl-workload-automation-console:10.1.0.00.20220722
+
+## Other supported tags
+
+* 10.1.0.00.20220722
+* 10.1.0.00.20220512
+* 10.1.0.00.20220304
+* 9.5.0.06.20220617
+* 9.5.0.05.20211217
 
  
 ## Prerequisites
