@@ -19,7 +19,7 @@ The information in this README contains the steps for deploying the following HC
  > **HCL Workload Automation**, which comprises master domain manager and its backup, Dynamic Workload Console, and Dynamic Agent
  
  
- For more information about HCL Workload Automation, see the product documentation library in [HCL Workload Automation Documentation]( https://help.hcltechsw.com/workloadautomation/v101/twa_landing.html).
+ For more information about HCL Workload Automation, see the product documentation library in [HCL Workload Automation Documentation](https://help.hcltechsw.com/workloadautomation/welcome/index.html).
  
 ## Details
 
