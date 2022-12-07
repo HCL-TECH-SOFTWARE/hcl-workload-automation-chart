@@ -85,6 +85,13 @@ You can access the HCL Workload Automation chart and container images from the E
 * hclcr.io/wa/hcl-workload-automation-server:10.1.0.01.20221130
 * hclcr.io/wa/hcl-workload-automation-console:10.1.0.01.20221130
 
+## Other supported tags
+* 10.1.0.01.20221130
+* 10.1.0.00.20220722
+* 10.1.0.00.20220512
+* 10.1.0.00.20220304
+* 9.5.0.06.20220617
+* 9.5.0.05.20211217
  
 ## Prerequisites
 Before you begin the deployment process, ensure your environment meets the following prerequisites:
