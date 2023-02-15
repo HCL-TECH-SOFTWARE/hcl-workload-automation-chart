@@ -737,7 +737,7 @@ Verifying the default engine connection depends on the network enablement config
 
 1. Log in to the console by using the URLs obtained in the previous step.
 
-2. For the credentials, specify the user name (wauser) and password (wa-pwd-secret, the passwrod specified when you created the secrets file to store passwords for the server, console and database).
+2. For the credentials, specify the user name (wauser) and password (wa-pwd-secret, the password specified when you created the secrets file to store passwords for the server, console and database).
 	
 3. From the navigation toolbar, select **Administration -> Manage Engines**.
 	
