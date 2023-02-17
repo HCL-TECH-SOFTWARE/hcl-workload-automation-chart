@@ -132,14 +132,14 @@ from `LoadBalancer` to `Routes`
 
 You can access AIDA subcharts and container images from the Entitled Registry. See [Creating the Secret](#creating-the-secret) for more information about accessing the registry. The images are as follows:
 
- - ``hclcr.io/wa/aida-ad:10.1.0.1`` 
- - ``hclcr.io/wa/aida-exporter:10.1.0.1``
- - ``hclcr.io/wa/aida-email:10.1.0.1``
- - ``hclcr.io/wa/aida-nginx:10.1.0.1``
- - ``hclcr.io/wa/aida-orchestrator:10.1.0.1``
- - ``hclcr.io/wa/aida-predictor:10.1.0.1``
- - ``hclcr.io/wa/aida-redis:10.1.0.1``
- - ``hclcr.io/wa/aida-ui:10.1.0.1``
+ - ``hclcr.io/wa/aida-ad:10.1.0.2`` 
+ - ``hclcr.io/wa/aida-exporter:10.1.0.2``
+ - ``hclcr.io/wa/aida-email:10.1.0.2``
+ - ``hclcr.io/wa/aida-nginx:10.1.0.2``
+ - ``hclcr.io/wa/aida-orchestrator:10.1.0.2``
+ - ``hclcr.io/wa/aida-predictor:10.1.0.2``
+ - ``hclcr.io/wa/aida-redis:10.1.0.2``
+ - ``hclcr.io/wa/aida-ui:10.1.0.2``
  
  
 
