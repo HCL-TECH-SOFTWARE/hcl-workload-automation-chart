@@ -64,7 +64,7 @@ AIDA helm chart is composed of the following sub-charts, one for each service:
 -   ``aida-orchestrator`` - Orchestrator service    
 -   ``aida-predictor`` - Predictor service    
 -   ``aida-redis`` - Internal event manager
--  `` aida-ui`` - AIDA UI
+-   ``aida-ui`` - AIDA UI
     
 
 Each sub-chart defines the following Kubernetes resources:
@@ -130,16 +130,16 @@ from `LoadBalancer` to `Routes`
 
 ##  Accessing the container images
 
-You can access AIDA subcharts and container images from the Entitled Registry. See [Creating the Secret](#creating-the-secret) for more information about accessing the registry. The images are as follows:
+You can access AIDA subcharts and container images from the Entitled Registry (online installation). See [Creating the Secret](#creating-the-secret) for more information about accessing the registry. The images are as follows:
 
- - ``hclcr.io/wa/aida-ad:10.1.0.2`` 
- - ``hclcr.io/wa/aida-exporter:10.1.0.2``
- - ``hclcr.io/wa/aida-email:10.1.0.2``
- - ``hclcr.io/wa/aida-nginx:10.1.0.2``
- - ``hclcr.io/wa/aida-orchestrator:10.1.0.2``
- - ``hclcr.io/wa/aida-predictor:10.1.0.2``
- - ``hclcr.io/wa/aida-redis:10.1.0.2``
- - ``hclcr.io/wa/aida-ui:10.1.0.2``
+ - ``hclcr.io/wa/aida-ad:10.1.0.3`` 
+ - ``hclcr.io/wa/aida-exporter:10.1.0.3``
+ - ``hclcr.io/wa/aida-email:10.1.0.3``
+ - ``hclcr.io/wa/aida-nginx:10.1.0.3``
+ - ``hclcr.io/wa/aida-orchestrator:10.1.0.3``
+ - ``hclcr.io/wa/aida-predictor:10.1.0.3``
+ - ``hclcr.io/wa/aida-redis:10.1.0.3``
+ - ``hclcr.io/wa/aida-ui:10.1.0.3``
  
  
 
@@ -154,7 +154,7 @@ AIDA requires:
     - Mozilla Firefox 61.0.1 or higher 
     - Microsoft Edge 79 or higher
 
-AIDA prerequisites are inherited by HCL Workload Automation V10.1. 
+AIDA prerequisites are inherited by HCL Workload Automation. 
 
 ##  Resources Required
 
