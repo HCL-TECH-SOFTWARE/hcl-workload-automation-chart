@@ -107,6 +107,7 @@ Before you begin the deployment process, ensure your environment meets the follo
 - Kubernetes version: >=1.15 (no specific APIs need to be enabled)
 - `kubectl` command-line tool to control Kubernetes clusters 
 - API key for accessing HCL Entitled Registry: `hcl.cr.io`
+- Optionally, create a secret file to store passwords and use your custom certificates. For further information, see [Creating a secrets file](#creating-a-secrets-file).
 
 The following are prerequisites specific to each supported cloud provider:
 
@@ -287,14 +288,24 @@ Create a secrets file to store passwords for the server, console and database, o
 	    apiVersion: v1
 	    kind: Secret
 	    metadata:
-	      name: wa-pwd-secret
+	      name: wa-pwd-secret-ssl-secret
 	      namespace: <workload_automation_namespace>
-	    type: Opaque
-	    data:
-	       WA_PASSWORD: <hidden_password>
-	       DB_ADMIN_PASSWORD: <hidden_password>
-	       DB_PASSWORD: <hidden_password>	
-	       SSL_PASSWORD: <hidden_password>
+	     labels:
+                app.kubernetes.io/instance wa-pwd-secret-ssl-secret
+                app.kubernetes.io/managed-by: Helm
+                app.kubernetes.io/name: workload-automation-prod
+                environment: prod
+                helm.sh/chart: workload-automation-prod
+                release: wa-pwd-secret-ssl-secret
+              annotations:
+                meta.helm.sh/release-name: wa-pwd-secret-ssl-secret
+                meta.helm.sh/release-namespace: <workload_automation_namespace>
+	      type: Opaque
+              data:
+	        WA_PASSWORD: <hidden_password>
+	        DB_ADMIN_PASSWORD: <hidden_password>
+	        DB_PASSWORD: <hidden_password>	
+	        SSL_PASSWORD: <hidden_password>
      
 where:
      
@@ -308,7 +319,7 @@ where:
    - DB_ADMIN_PASSWORD: \<hidden password>
    - DB_PASSWORD: \<hidden password>    
    - SSL_PASSWORD: \<hidden password>
-> **Note b**: The SSL_PASSWORD parameter is required only if you use custom certificates in PEM format.
+> **Note b**: The SSL_PASSWORD parameter is required only if you use custom certificates in PEM format. If you want to encrypt the custom certificate with SSL_PASSWORD, ensure that they use the same password defined in SSL_PASSWORD.
 
 2. Once the file has been created and filled in, it must be imported.
 
