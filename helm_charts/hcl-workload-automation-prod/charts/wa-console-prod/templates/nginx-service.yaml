@@ -1,0 +1,24 @@
+####################################################################
+# Licensed Materials Property of HCL*
+# (c) Copyright HCL Technologies Ltd. 2023. All rights reserved.
+#
+# * Trademark of HCL Technologies Limited
+####################################################################
+{{- if .Values.enableNginxServer }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-nginx-service
+  labels:
+{{ include "wa.console.labels" . | indent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ .Release.Name }}-nginx-deployment
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
