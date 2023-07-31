@@ -96,7 +96,7 @@ waagent:
       #   mountPath: /custom/mount/path-2
       # - name: nfs-volume
       #   mountPath: /path/nfs
-  replicaCount: 1
+  replicaCount: 3
   resources:
     limits:
       cpu: 1
