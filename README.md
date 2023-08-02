@@ -172,26 +172,27 @@ For more information about supported storage types, see [Storage overview | Stor
 
 Installing and configuring HCL Workload Automation, involves the following high-level steps:
 
-1. [Create the Namespace](#create-the-namespace).
-2. [Creating a Kubernetes Secret](#create-the-secret) by accessing the entitled registry to store an entitlement key for the HCL Workload Automation offering on your cluster. 
+1. [Creating the Namespace](#creating-the-namespace).
+2. [Creating a Kubernetes Secret](#creating-the-secret) by accessing the entitled registry to store an entitlement key for the HCL Workload Automation offering on your cluster. 
 3. [Securing communication](#securing-communication) using either Jetstack cert-manager or using your custom certificates.
 4. [Creating a secrets file](#creating-a-secrets-file) to store passwords for the console and server components, or if you use custom certificates, to add your custom certificates to the Certificates Secret.
-5. (For Microsoft Azure AKS and Google GKE only) [Configuring the Microsoft Azure SQL server database](#configuring-the-microsoft-azure-sql-server-database) or [Configuring the Google Cloud SQL for SQL Server
+5. [Loading third-party certificates](#loading-third-party-certificates)
+6. (For Microsoft Azure AKS and Google GKE only) [Configuring the Microsoft Azure SQL server database](#configuring-the-microsoft-azure-sql-server-database) or [Configuring the Google Cloud SQL for SQL Server
  database](#configuring-the-google-cloud-sql-for-sql-server-database).
-6. [Installing Automation Hub integrations](#installing-automation-hub-integrations).
-7. [Installing custom integrations](#installing-custom-integrations).
-5. [Deploying the product components](#deploying-the-product-components).
-6. [Verifying the installation](#verifying-the-installation).
+7. [Installing Automation Hub integrations](#installing-automation-hub-integrations).
+8. [Installing custom integrations](#installing-custom-integrations).
+9. [Deploying the product components](#deploying-the-product-components).
+10. [Verifying the installation](#verifying-the-installation).
 
 
-### Create the Namespace
+### Creating the Namespace
 
 To create the namespace, run the following command:
 
         kubectl create namespace <workload_automation_namespace>
 	
 
-### Create the Secret 
+### Creating the Secret 
 
 If you already have a license then you can proceed to obtain your entitlement key. To learn more about acquiring an HCL Workload Automation license, contact HWAinfo@hcl.com. 
 
@@ -280,7 +281,7 @@ Cert-manager is a Kubernetes addon that automates the management and issuance of
         kubectl apply -f issuer.yaml -n <workload_automation_namespace>
 		
 ### Creating a secrets file
-Create a secrets file to store passwords for the server, console and database, or if you use custom certificates, to add your custom certificates to the Certificates Secret.
+Create a secrets file to store passwords for the server, console and database, or if you use custom certificates, to add your custom certificates to the Certificates Secret. It is recommended you create a secret for each certificate.
 
 ##### Create secrets file to store passwords for the console and server components
 
@@ -289,7 +290,7 @@ Create a secrets file to store passwords for the server, console and database, o
 	    apiVersion: v1
 	    kind: Secret
 	    metadata:
-	      name: wa-pwd-secret-ssl-secret
+	      name: wa-pwd-secret
 	      namespace: <workload_automation_namespace>
 	     labels:
                 app.kubernetes.io/instance wa-pwd-secret-ssl-secret
@@ -306,7 +307,7 @@ Create a secrets file to store passwords for the server, console and database, o
 	        WA_PASSWORD: <hidden_password>
 	        DB_ADMIN_PASSWORD: <hidden_password>
 	        DB_PASSWORD: <hidden_password>	
-	        SSL_PASSWORD: <hidden_password>
+	        
      
 where:
      
@@ -315,12 +316,11 @@ where:
    - **<hidden_password>** must be entered; to enter an encrypted password, run the following command in a UNIX shell and copy the output into the yaml file:
 	    `echo -n 'mypassword' | base64`
 
-> **Note a**: The `echo` command must be launched separately for each password that you want to enter as an encrypted password in the mysecret.yaml:
+> **Note**: The `echo` command must be launched separately for each password that you want to enter as an encrypted password in the mysecret.yaml:
    - WA_PASSWORD: \<hidden password>
    - DB_ADMIN_PASSWORD: \<hidden password>
    - DB_PASSWORD: \<hidden password>    
-   - SSL_PASSWORD: \<hidden password>
-> **Note b**: The SSL_PASSWORD parameter is required only if you use custom certificates in PEM format. If you want to encrypt the custom certificate with SSL_PASSWORD, ensure that they use the same password defined in SSL_PASSWORD.
+   
 
 2. Once the file has been created and filled in, it must be imported.
 
@@ -330,7 +330,55 @@ where:
 	
 	    kubectl apply -f <my_path>/mysecret.yaml -n <workload_automation_namespace>
 	  
-where **<my_path>** is the location path of the mysecret.yaml file.	
+where **<my_path>** is the location path of the mysecret.yaml file.
+
+3. You can optionally force the keystore password or use a non-randomic password. Starting from v 10.1 Fix Pack 3, if you do not create a secret, the SSL password for the keystores is generated randomly. If you want to create a secret, use the following syntax:
+
+
+	    apiVersion: v1
+	    kind: Secret
+	    metadata:
+	      name: <release_name>-ssl-secret
+	      namespace: <workload_automation_namespace>
+   	     labels:
+                app.kubernetes.io/instance wa-pwd-secret-ssl-secret
+                app.kubernetes.io/managed-by: Helm
+                app.kubernetes.io/name: workload-automation-prod
+                environment: prod
+                helm.sh/chart: workload-automation-prod
+                release: wa-pwd-secret-ssl-secret
+              annotations:
+                meta.helm.sh/release-name: wa-pwd-secret-ssl-secret
+                meta.helm.sh/release-namespace: <workload_automation_namespace>
+	    type: Opaque
+	    data:
+	       SSL_PASSWORD: <hidden_password>
+	      
+     
+
+**Note** Starting from v 10.2, if the passwords in the keystore secret and in the secret optionally created in step 3, do not match, keystores are removed and recreated from scratch using the password you defined. This mechanism allows you to rotate the keystore password when necessary. 
+
+
+### Loading third-party certificates
+
+To add third-party certificates to the truststore, create a secret with the following syntax: 
+
+
+		
+            apiVersion: v1
+		kind: Secret
+		metadata:
+		  name: <yourcert-server-crt>
+		  namespace: <workload_automation_namespace>
+		  labels:
+		    wa-import: 'true'
+		type: kubernetes.io/tls
+		data:
+		  tls.crt: <base64_encoded_certificate>
+		  tls.key: ''
+
+
+
 
 ### Enabling installation of dynamic agents on kubernetes with a remote gateway
 
@@ -1365,9 +1413,55 @@ The HCL Workload Automation Helm chart does not support automatic scaling to zer
 #### Proportional scaling
  The HCL Workload Automation Helm chart does not support proportional scaling.
 		  
-### Managing your custom certificates
+        
+### Managing custom PEM certificates
 
-If you use customized certificates, `useCustomizedCert:true`, you must create a secret containing the customized files that will replace the Server default ones in the \<workload_automation_namespace>. Customized files must have the same name as the default ones.
+  * ca.crt
+  * tls.key
+  * tls.crt
+      
+  If you want to use custom certificates, set `useCustomizedCert:true` and use kubectl to apply the secret in the \<workload_automation_namespace>.
+ For the master domain manager, type the following command:
+ 
+ ```
+kubectl create secret generic waserver-cert-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n <workload-automation-namespace>   
+ ``` 
+For the Dynamic Workload Console, type the following command:
+
+ ```
+  kubectl create secret generic waconsole-cert-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n <workload_automation_namespace>   
+    
+  ``` 
+ For the dynamic agent, type the following command:
+ ```
+ kubectl create secret generic waagent-cert-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n <workload_automation_namespace>    
+ ```   
+    
+   where, ca.crt, tls.key, and tls.crt are the Container keystore and stash file containing your customized certificates.
+   
+   For details about custom certificates, see [Connection security overview](https://help.hcltechsw.com/workloadautomation/v95/distr/src_ad/awsadconnsec.html).
+
+<!-- > **Note**: Passwords for "TWSServerTrustFile.jks" and "TWSServerKeyFile.jks" files must be entered in the respective "TWSServerTrustFile.jks.pwd" and "TWSServerKeyFile.jks.pwd" files. -->
+ 
+> (**) **Note:** if you set `db.sslConnection:true`, you must also set the `useCustomizeCert` setting to true (on both server and console charts) and, in addition, you must add the following certificates in the customized SSL certificates secret on both the server and console charts:
+
+  * ca.crt
+  * tls.key
+  * tls.crt
+  
+ Customized files must have the same name as the ones listed above.
+         
+If you want to use SSL connection to DB, set `db.sslConnection:true` and `useCustomizedCert:true`, then use kubectl to create the secret in the same namespace where you want to deploy the chart:
+
+      bash
+      $ kubectl create secret generic release_name-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n --namespace=<workload_automation_namespace>
+        
+
+If you define custom certificates, you are in charge of keeping them up to date, therefore, ensure you check their duration and plan to rotate them as necessary. To rotate custom certificates, delete the previous secret and upload a new secret, containing new certificates. The pod restarts automatically and the new certificates are applied.
+
+### Managing your custom certificates (DEPRECATED STARTING FROM V 10)
+
+This procedure is deprecated starting from v 10. Use the [Managing custom PEM certificates](#managing-custom-PEM-certificates) procedure instead. If you use customized certificates, `useCustomizedCert:true`, you must create a secret containing the customized files that will replace the Server default ones in the \<workload_automation_namespace>. Customized files must have the same name as the default ones.
 
   * TWSClientKeyStoreJKS.sth
   * TWSClientKeyStore.kdb
@@ -1416,52 +1510,6 @@ If you want to use SSL connection to DB, set `db.sslConnection:true` and `useCus
 
       bash
       $ kubectl create secret generic release_name-secret --from-file=TWSServerTrustFile.jks --from-file=TWSServerKeyFile.jks --from-file=TWSServerTrustFile.jks.pwd --from-file=TWSServerKeyFile.jks.pwd --namespace=<workload_automation_namespace>
-        
-### Managing custom .PEM certificates
-
-  * ca.crt
-  * tls.key
-  * tls.crt
-      
-  If you want to use custom certificates, set `useCustomizedCert:true` and use kubectl to apply the secret in the \<workload_automation_namespace>.
- For the master domain manager, type the following command:
- 
- ```
-kubectl create secret generic waserver-cert-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n <workload-automation-namespace>   
- ``` 
-For the Dynamic Workload Console, type the following command:
-
- ```
-  kubectl create secret generic waconsole-cert-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n <workload_automation_namespace>   
-    
-  ``` 
- For the dynamic agent, type the following command:
- ```
- kubectl create secret generic waagent-cert-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n <workload_automation_namespace>    
- ```   
-    
-   where, ca.crt, tls.key, and tls.crt are the Container keystore and stash file containing your customized certificates.
-   
-   For details about custom certificates, see [Connection security overview](https://help.hcltechsw.com/workloadautomation/v95/distr/src_ad/awsadconnsec.html).
-
-<!-- > **Note**: Passwords for "TWSServerTrustFile.jks" and "TWSServerKeyFile.jks" files must be entered in the respective "TWSServerTrustFile.jks.pwd" and "TWSServerKeyFile.jks.pwd" files. -->
- 
-> (**) **Note:** if you set `db.sslConnection:true`, you must also set the `useCustomizeCert` setting to true (on both server and console charts) and, in addition, you must add the following certificates in the customized SSL certificates secret on both the server and console charts:
-
-  * ca.crt
-  * tls.key
-  * tls.crt
-  
- Customized files must have the same name as the ones listed above.
-         
-If you want to use SSL connection to DB, set `db.sslConnection:true` and `useCustomizedCert:true`, then use kubectl to create the secret in the same namespace where you want to deploy the chart:
-
-      bash
-      $ kubectl create secret generic release_name-secret --from-file=ca.crt --from-file=tls.key --from-file=tls.crt -n --namespace=<workload_automation_namespace>
-        
-
-If you define custom certificates, you are in charge of keeping them up to date, therefore, ensure you check their duration and plan to rotate them as necessary. To rotate custom certificates, delete the previous secret and upload a new secret, containing new certificates. The pod restarts automatically and the new certificates are applied.
-
 
 ## Storage
 
