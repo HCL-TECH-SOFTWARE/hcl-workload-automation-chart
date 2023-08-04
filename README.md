@@ -140,7 +140,7 @@ For additional details about AWS storage settings, see [Storage classes](https:/
 | Azure File             |     SSD      | Default  | ReadWriteOnce   |
 | Azure Disk             |     SSD      | Default  | ReadWriteOnce   |
 
-**Note:** The volumeBindingMode must be set to **WaitforFirstConsumer** and not **Immediate**. 
+>**Note:** The volumeBindingMode must be set to **WaitforFirstConsumer** and not **Immediate**. 
 For additional details about Microsoft Azure storage settings, see [Azure Files - Dynamic](https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv).
 
 ![Google GKE](images/taggke.png "Google GKE")
@@ -356,7 +356,7 @@ where **<my_path>** is the location path of the mysecret.yaml file.
 	      
      
 
-**Note** Starting from v 10.2, if the passwords in the keystore secret and in the secret optionally created in step 3, do not match, keystores are removed and recreated from scratch using the password you defined. This mechanism allows you to rotate the keystore password when necessary. 
+>**Note** Starting from v 10.2, if the passwords in the keystore secret and in the secret optionally created in step 3, do not match, keystores are removed and recreated from scratch using the password you defined. This mechanism allows you to rotate the keystore password when necessary. 
 
 
 ### Loading third-party certificates
@@ -402,7 +402,7 @@ To deploy a new agent in an existing environment with wa-server, wa-console, and
 | agent.dynamic.gateway.portT              | 31114 (default port of the agent with local gateway)     |
 | agent.dynamic.gateway.jmFullyQualifiedHostname     |   wa-agent_1 (hostname of the agent where we need to deploy and connect to the remote gateway of wa_agent)                 |
 
-NOTE: 
+>NOTE: 
 To enable the communication and to update the status of the job, ensure that the parameter JobManagerGWURIs,JobManagerGWURIs, which is found in the JobManagerGW.ini file is correctly populated with the name of the service (for containers) of the agent with the local gateway (wa-agent in the above example) or the hostname of the VM where the agent has been installed. 
 For containers, ensure to replace the JobManagerGWURIs value from
 JobManagerGWURIs=https://localhost:31114/ita/JobManagerGW/JobManagerRESTWeb/JobScheduler/resource to JobManagerGWURIs=https://<wa-agent-service-name>:31114/ita/JobManagerGW/JobManagerRESTWeb/JobScheduler/resource
@@ -488,7 +488,7 @@ To use the database with both the server and console components, set the `type` 
 
 You can extend Workload Automation with a number of out-of-the-box integrations, or plug-ins. Complete documentation for the integrations is available on [Automation Hub](https://www.yourautomationhub.io/). Use this procedure to integrate only the integrations you need to automate your business workflows.
 
-**Note:** You must perform this procedure before deploying the server and console components. Any changes made post-installation are applied the next time you perform an upgrade.
+>**Note:** You must perform this procedure before deploying the server and console components. Any changes made post-installation are applied the next time you perform an upgrade.
 
 The following procedure describes how you can create and customize a *configMap* file to identify the integrations you want to make available in your Workload Automation environment:
 
@@ -1219,7 +1219,7 @@ For more information about these configurable parameters, see the **[Server para
 
 2. Set the value of the `exposeServiceType`parameter to `LoadBalancer`. 
 
-   **Note:** You can also set the value of the `exposeServiceType` parameter to`LoadBalancer_sessionAffinity` for Azure AKS and Google  GKE. This parameter ensures each user session always remains active on the same pod, providing a smooth and seamless user experience.
+   >**Note:** You can also set the value of the `exposeServiceType` parameter to`LoadBalancer_sessionAffinity` for Azure AKS and Google  GKE. This parameter ensures each user session always remains active on the same pod, providing a smooth and seamless user experience.
    
 3. In the `exposeServiceAnnotation` section, uncomment the lines in this section as follows:
 
@@ -1444,10 +1444,10 @@ For the Dynamic Workload Console, type the following command:
 <!-- > **Note**: Passwords for "TWSServerTrustFile.jks" and "TWSServerKeyFile.jks" files must be entered in the respective "TWSServerTrustFile.jks.pwd" and "TWSServerKeyFile.jks.pwd" files. -->
  
 > (**) **Note:** if you set `db.sslConnection:true`, you must also set the `useCustomizeCert` setting to true (on both server and console charts) and, in addition, you must add the following certificates in the customized SSL certificates secret on both the server and console charts:
-
-  * ca.crt
-  * tls.key
-  * tls.crt
+> 
+>   * ca.crt
+>   * tls.key
+>   * tls.crt
   
  Customized files must have the same name as the ones listed above.
          
@@ -1461,7 +1461,8 @@ If you define custom certificates, you are in charge of keeping them up to date,
 
 ### Managing your custom certificates (DEPRECATED STARTING FROM V 10)
 
-This procedure is deprecated starting from v 10. Use the [Managing custom PEM certificates](#managing-custom-PEM-certificates) procedure instead. If you use customized certificates, `useCustomizedCert:true`, you must create a secret containing the customized files that will replace the Server default ones in the \<workload_automation_namespace>. Customized files must have the same name as the default ones.
+This procedure is deprecated starting from v 10. Use the [Managing custom PEM certificates](#managing-custom-PEM-certificates) procedure instead. 
+Create a secret containing the customized files that will replace the Server default ones in the \<workload_automation_namespace>. Customized files must have the same name as the default ones.
 
   * TWSClientKeyStoreJKS.sth
   * TWSClientKeyStore.kdb
@@ -1534,10 +1535,10 @@ Pre-create a persistent volume. If you configure the label=value pair described 
 	* **persistence.enabled:true**
 	* **persistence.useDynamicProvisioning:false**
 
-> Note: By configuring the following two parameters, the persistent volume claim is automatically generated. Ensure that this label=value pair is inserted in the persistent volume you created: 
-
-- \<wa-component>.persistence.dataPVC.selector.label
-- \<wa-component>.persistence.dataPVC.selector.value
+> **Note**: By configuring the following two parameters, the persistent volume claim is automatically generated. Ensure that this label=value pair is inserted in the persistent volume you created: 
+> 
+> - \<wa-component>.persistence.dataPVC.selector.label
+> - \<wa-component>.persistence.dataPVC.selector.value
 
 Let the Kubernetes binding process select a pre-existing volume based on the accessMode and size. Use selector labels to refine the binding process.
 
