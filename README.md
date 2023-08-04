@@ -317,9 +317,9 @@ where:
 	    `echo -n 'mypassword' | base64`
 
 > **Note**: The `echo` command must be launched separately for each password that you want to enter as an encrypted password in the mysecret.yaml:
-   - WA_PASSWORD: \<hidden password>
-   - DB_ADMIN_PASSWORD: \<hidden password>
-   - DB_PASSWORD: \<hidden password>    
+>    - WA_PASSWORD: \<hidden password>
+>    - DB_ADMIN_PASSWORD: \<hidden password>
+>    - DB_PASSWORD: \<hidden password>    
    
 
 2. Once the file has been created and filled in, it must be imported.
