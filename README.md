@@ -1448,8 +1448,8 @@ For the Dynamic Workload Console, type the following command:
 >   * ca.crt
 >   * tls.key
 >   * tls.crt
-  
- Customized files must have the same name as the ones listed above.
+>  
+> Customized files must have the same name as the ones listed above.
          
 If you want to use SSL connection to DB, set `db.sslConnection:true` and `useCustomizedCert:true`, then use kubectl to create the secret in the same namespace where you want to deploy the chart:
 
