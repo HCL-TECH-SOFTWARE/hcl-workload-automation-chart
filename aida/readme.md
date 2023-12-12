@@ -33,15 +33,7 @@
 ##  Introduction
 
 
-**AI Data Advisor (AIDA)** is a component of HCL Workload Automation since V10.1, and is based on Artificial Intelligence and Machine Learning techniques. It enables fast and simplified data-driven decision making for an intelligent workload management. By analyzing workload historical data and metrics gathered by HCL Workload Automation and predicting their future patterns, AIDA identifies anomalies in KPIs trend (such as the jobs in plan by status and the jobs in plan by workstation) and sends immediate alerts to prevent problems and delays. Alerts show up on the Workload Dashboard and can be notified via email.
-
-AIDA can be deployed into the following supported third-party cloud provider infrastructures:
-
--   ![Amazon EKS](images/tagawseks.png "Amazon EKS")
--   ![Microsoft Azure](images/tagmsa.png "Microsoft Azure")
--   ![Google GKE](images/taggke.png "Google GKE")
-
-For more information about AIDA, see [AIDA User's Guide](https://help.hcltechsw.com/workloadautomation/v102/common/src_ai/awsaimst_welcome.html).
+**AI Data Advisor (AIDA)** is a component of HCL Workload Automation since V10.1, based on Artificial Intelligence and Machine Learning techniques. It enables fast and simplified data-driven decision making for an intelligent workload management. By analyzing workload historical data and metrics gathered by HCL Workload Automation and predicting their future patterns, AIDA identifies anomalies in KPIs trend (such as the jobs in plan by status and the jobs in plan by workstation) and sends immediate alerts to prevent problems and delays. Alerts show up on the Workload Dashboard and can be notified via email.
 
 This readme provides the steps for deploying AIDA, using helm charts and container images. Deploy AIDA after deploying HCL Workload Automation. For details about  HCL Workload Automation deployment, refer to HCL Workload Automation readme file. 
 
@@ -56,15 +48,15 @@ This readme provides the steps for deploying AIDA, using helm charts and contain
 ##  Details
 AIDA helm chart is composed of the following sub-charts, one for each service:
 
--   ``aida-ad`` - Anomaly detection and alert generation service    
--   ``aida-es`` - Elasticsearch, to store and analyze data    
--   ``aida-exporter`` - Exporter service    
--   ``aida-email`` - Email notification service    
--   ``aida-nginx`` - As a reverse proxy for AIDA components    
--   ``aida-orchestrator`` - Orchestrator service    
--   ``aida-predictor`` - Predictor service    
--   ``aida-redis`` - Internal event manager
--   ``aida-ui`` - AIDA UI
+-   ``aida-ad`` - Anomaly detection and alert generation service    
+-   ``aida-es`` - Elasticsearch, to store and analyze data    
+-   ``aida-exporter`` - Exporter service    
+-   ``aida-email`` - Email notification service    
+-   ``aida-nginx`` - As a reverse proxy for AIDA components    
+-   ``aida-orchestrator`` - Orchestrator service    
+-   ``aida-predictor`` - Predictor service    
+-   ``aida-redis`` - Internal event manager
+-  `` aida-ui`` - AIDA UI
     
 
 Each sub-chart defines the following Kubernetes resources:
@@ -132,21 +124,21 @@ from `LoadBalancer` to `Routes`
 
 You can access AIDA subcharts and container images from the Entitled Registry (online installation). See [Creating the Secret](#creating-the-secret) for more information about accessing the registry. The images are as follows:
 
- - ``hclcr.io/wa/aida-ad:10.2.0.0`` 
- - ``hclcr.io/wa/aida-exporter:10.2.0.0``
- - ``hclcr.io/wa/aida-email:10.2.0.0``
- - ``hclcr.io/wa/aida-nginx:10.2.0.0``
- - ``hclcr.io/wa/aida-orchestrator:10.2.0.0``
- - ``hclcr.io/wa/aida-predictor:10.2.0.0``
- - ``hclcr.io/wa/aida-redis:10.2.0.0``
- - ``hclcr.io/wa/aida-ui:10.2.0.0``
+ - ``hclcr.io/wa/aida-ad:10.2.1`` 
+ - ``hclcr.io/wa/aida-exporter:10.2.1``
+ - ``hclcr.io/wa/aida-email:10.2.1``
+ - ``hclcr.io/wa/aida-nginx:10.2.1``
+ - ``hclcr.io/wa/aida-orchestrator:10.2.1``
+ - ``hclcr.io/wa/aida-predictor:10.2.1``
+ - ``hclcr.io/wa/aida-redis:10.2.1``
+ - ``hclcr.io/wa/aida-ui:10.2.1``
  
  
 
 ##  Prerequisites
 AIDA requires:
 
- -  HCL Workload Automation V10.1 or above exposed metrics. For information about HCL Workload Automation exposed metrics, see [Exposing metrics to monitor your workload](https://help.hcltechsw.com/workloadautomation/v102/distr/src_ref/awsrgmonprom.html).   
+ -  HCL Workload Automation V10.1 or higher exposed metrics. For information about HCL Workload Automation exposed metrics, see [Exposing metrics to monitor your workload](https://help.hcltechsw.com/workloadautomation/v102/distr/src_ref/awsrgmonprom.html).   
  -  API key for accessing the Entitled Registry: hclcr.io
  -  External container image for OpenSearch 2.3.0 (an Elasticsearch based technology)
  -  Supported browsers are: 
@@ -176,16 +168,18 @@ AIDA prerequisites are inherited by HCL Workload Automation.
 
 Before installing AIDA, run the following steps: 
 
-1.  Accept the product license by setting the global.license parameter to **accept** (default value is **notaccepted**) in the values.yaml file.
-2.  To use custom SSL certificates for AIDA, in the <install_path>/nginx/cert folder replace aida.crt e aida.key with your own files (do not change the default names).
-3.  Verify that aida-exporter.waHostName parameter in the values.yaml file is set to the host name used to reach the WA server. This parameter is not required if AIDA is deployed in the same helm chart as WA.
-4.  Verify that aida-exporter.waPort parameter in the values.yaml file is set to the port used to reach the WA server. Its default value is "3116".   
-5.  Verify that aida-nginx.waConsoleCertSecretName parameter in the values.yaml file is set to the name of the WA console secret used to store the customized SSL certificates.
-6.  If you want to receive alert notification via email, properly set the configuration parameters in the aida-email section of the values.yaml file.  
+1.  To use custom SSL certificates for AIDA, in the <install_path>/nginx/cert folder replace aida.crt e aida.key with your own files (do not change the default names).
+2.  Verify that aida-exporter.waHostName parameter in the values.yaml file is set to the host name used to reach the WA server. This parameter is not required if AIDA is deployed in the same helm chart as WA.
+3.  Verify that aida-exporter.waPort parameter in the values.yaml file is set to the port used to reach the WA server. Its default value is "3116".   
+4.  Verify that aida-nginx.waConsoleCertSecretName parameter in the values.yaml file is set to the name of the WA console secret used to store the customized SSL certificates.
+5.  If you want to receive alert notification via email, properly set the configuration parameters in the aida-email section of the values.yaml file.  
+6.  To prevent HTTP Host Header attacks, in the values.yaml file add the string ``EXTERNAL_HOSTNAME=IP`` where IP is the IP address of the machine where AIDA is being installed.
 
 ##  Installing
 
-Refer to HCL Workload Automation readme file for the general installation procedure that  includes AIDA as an HCL Workload Automation component.
+Refer to HCL Workload Automation readme file for the general installation procedure that includes AIDA as an HCL Workload Automation component.
+During the installation procedure, accept the product license when prompted.
+
 In addition, run the following AIDA specific steps: 
 
 1. [Creating the  Secret](#creating-the-secret) by accessing the entitled registry to store an entitlement key for AIDA offering on your cluster.
@@ -293,8 +287,6 @@ Refer to HCL Workload Automation readme file.
 
 Refer to HCL Workload Automation readme file.
 		
-
-	
 ##  Configuration Parameters
 
 The following tables list the configurable parameters of the chart **values.yaml**, and their default values. 
@@ -675,7 +667,7 @@ For more information about the required amount of storage, see  [Resources Requi
 
 _Custom storage class:_   
 Modify the `aida-es.persistence.dataPVC.storageClassName`
- parameter in the `value.yaml` file by specifying the custom storage class name, when you deploy aida-es component.
+parameter in the `value.yaml` file by specifying the custom storage class name, when you deploy aida-es component.
 
 _Default storage class_:  
 Leave the values for the `aida-es.persistence.dataPVC.storageClassName` 
@@ -695,6 +687,3 @@ AIDA supports only ReadWriteOnce (RWO) access mode. The volume can be mounted as
 ##  Documentation
 
 For more information about AIDA, see [AIDA User's Guide](https://help.hcltechsw.com/workloadautomation/v102/common/src_ai/awsaimst_welcome.html).
-
-
-
