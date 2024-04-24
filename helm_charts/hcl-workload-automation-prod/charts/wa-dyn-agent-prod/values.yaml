@@ -15,7 +15,7 @@ global:
 replicaCount: 1
 image:
   repository: hclcr.io/wa/hcl-workload-automation-agent-dynamic
-  tag: 10.2.1.00.20231201
+  tag: 10.2.2.00.20240424
   pullPolicy: Always
 licenseType: "PERJOB"
 runAsUser: 999
