@@ -4,9 +4,9 @@
 #
 # * Trademark of HCL Technologies Limited
 ####################################################################
-apiVersion: v2
-appVersion: 10.2.1.00
-
+name: wa-console-prod
+version: 10.2.2
+appVersion: 10.2.2.00
 description: Helm chart for configuring HCL Workload Automation.
 keywords:
 - Commercial
@@ -15,8 +15,7 @@ keywords:
 - Workload Automation
 - Automation
 - DevOps
-kubeVersion: '>=1.14.0 || >=1.14.0-0'
 maintainers:
 - name: HCL Workload Automation
-name: wa-console-prod
-version: 10.2.1
+kubeVersion: ">=1.14.0 || >=1.14.0-0"
+apiVersion: v2

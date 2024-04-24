@@ -13,7 +13,7 @@ global:
   defaultShardCount: 1
   enablePrometheus: true
   customPluginImageName: 
-  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.1.00.20231201
+  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.2.00.20240424
   configPlugins:
   customLabels:
     - name: "environment"
@@ -38,6 +38,8 @@ waagent:
         mdmhostname: null
         port: "31116"
       useCustomizedCert: false
+      certDuration: 2160h # 90d
+      certRenewBefore: 360h # 15d
     livenessProbe:
       initialDelaySeconds: 60
     name: WA_AGT
@@ -67,7 +69,7 @@ waagent:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-agent-dynamic
-    tag: 10.2.1.00.20231201
+    tag: 10.2.2.00.20240424
   persistence:
     dataPVC:
       name: data
@@ -181,11 +183,13 @@ waconsole:
       initialDelaySeconds: 100
     pwdSecretName: wa-pwd-secret
     useCustomizedCert: false
+    certDuration: 2160h # 90d
+    certRenewBefore: 360h # 15d  
     tz:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-console
-    tag: 10.2.1.00.20231201
+    tag: 10.2.2.00.20240424
   persistence:
     dataPVC:
       name: data
@@ -235,7 +239,7 @@ waserver:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-server
-    tag: 10.2.1.00.20231201
+    tag: 10.2.2.00.20240424
   persistence:
     dataPVC:
       name: data
@@ -368,13 +372,15 @@ waserver:
     startOfDay: "0700"
     timezone: null
     tz: null
-    useCustomizedCert: false  
+    useCustomizedCert: false
+    certDuration: 2160h # 90d
+    certRenewBefore: 360h # 15d    
 wafileproxy:
   enableFileProxy: false
   replicaCount: 1
   image:
     repository: hclcr.io/wa/hcl-workload-automation-fileproxy
-    tag: 10.2.1.00.20231201
+    tag: 10.2.2.00.20240424
     pullPolicy: Always
   nameOverride: ""
   fullnameOverride: ""
@@ -382,6 +388,8 @@ wafileproxy:
   fileProxy:
     certSecretName: wa-fileproxy-cert
     useCustomizedCert: false
+    certDuration: 2160h # 90d
+    certRenewBefore: 360h # 15d   
     containerDebug: false
     port: 44444
     route:
@@ -442,7 +450,7 @@ waaida:
   aida-ad:
     image:
       repository: hclcr.io/wa/hcl-aida-ad
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -508,7 +516,7 @@ waaida:
     resolveAlertsAfterDays: 1
     image:
       repository: hclcr.io/wa/hcl-aida-exporter
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -529,7 +537,7 @@ waaida:
     recipientMailIds: "mail1@mail.com,mail2@mail.com"
     image:
       repository: hclcr.io/wa/hcl-aida-email
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -546,7 +554,7 @@ waaida:
     waConsoleCertSecretName: waconsole-cert-secret
     image:
       repository: hclcr.io/wa/hcl-aida-nginx
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -579,7 +587,7 @@ waaida:
     daysOfPrediction: 1
     image:
       repository: hclcr.io/wa/hcl-aida-orchestrator
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -595,7 +603,7 @@ waaida:
   aida-predictor:
     image:
       repository: hclcr.io/wa/hcl-aida-predictor
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -617,7 +625,7 @@ waaida:
   aida-redis:
     image:
       repository: hclcr.io/wa/hcl-aida-redis
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -634,7 +642,7 @@ waaida:
     uiLogLevel: "ERROR:*,INFO:*,-TRACE:*"
     image:
       repository: hclcr.io/wa/hcl-aida-ui
-      tag: 10.2.1.00.20231201
+      tag: 10.2.2.00.20240424
       pullPolicy: Always
     serviceAccount:
       create: false
