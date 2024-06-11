@@ -19,7 +19,7 @@ The information in this README contains the steps for deploying the following HC
  > **HCL Workload Automation**, which comprises master domain manager and its backup, Dynamic Workload Console, and Dynamic Agent
  
  
- For more information about HCL Workload Automation, see the product documentation library in [HCL Workload Automation Documentation](https://help.hcltechsw.com/workloadautomation/v1021/index.html).
+ For more information about HCL Workload Automation, see the product documentation library in [HCL Workload Automation Documentation](https://help.hcltechsw.com/workloadautomation/v1022/index.html).
  
 ## Details
 
@@ -28,7 +28,7 @@ By default, a single  server (master domain manager), Dynamic Workload Console (
 To achieve high availability in an HCL Workload Automation environment, the minimum base configuration is composed of 2 Dynamic Workload Consoles and 2 servers (master domain managers). For more details about HCL Workload Automation and high availability, see: 
 
 
-[An active-active high availability scenario](https://help.hcltechsw.com/workloadautomation/v1021/distr/src_ad/awsadhaloadbal.html).
+[An active-active high availability scenario](https://help.hcltechsw.com/workloadautomation/v1022/distr/src_ad/awsadhaloadbal.html).
 
 HCL Workload Automation can be deployed across a single cluster, but you can add multiple instances of the product components by using a different namespace in the cluster. The product components can run in multiple failure zones in a single cluster.
 
@@ -67,7 +67,7 @@ In addition to the product components, the following objects are installed:
 - ![OpenShift](images/tagOpenShift.png "OpenShift") OpenShift (OCP)
 
 ### Openshift support
-You can deploy HCL Workload Automation on Openshift 4.2 or later version by following the instruction in this documentation and using helm charts. 
+You can deploy HCL Workload Automation on Openshift 4.14 or later version by following the instruction in this documentation and using helm charts. 
 For Server and Console component ensure to modify the value of these parameters:
 - waserver.server.exposeServiceType
 - waconsole.console.exposeServiceType
@@ -159,7 +159,7 @@ For more details about the storage requirements for your persistent volume claim
 ![OpenShift](images/tagOpenShift.png "OpenShift") OpenShift (OCP)
 
 Ensure your PVC Access Mode is ReadWriteOnce.
-For more information about supported storage types, see [Storage overview | Storage | OpenShift Container Platform 4.10](https://docs.openshift.com/container-platform/4.10/storage/index.html).
+For more information about supported storage types, see [Storage overview | Storage | OpenShift Container Platform 4.10](https://docs.openshift.com/container-platform/4.14/storage/index.html).
 
 ## Resources Required
   
