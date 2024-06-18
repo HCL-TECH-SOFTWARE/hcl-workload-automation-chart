@@ -66,8 +66,10 @@ In addition to the product components, the following objects are installed:
 - ![Google GKE](images/taggke.png "Google GKE") Google Kubernetes Engine (GKE) on amd64: 64-bit Intel/AMD x86
 - ![OpenShift](images/tagOpenShift.png "OpenShift") OpenShift (OCP)
 
+HCL Workload Automation supports all the platforms supported by the runtime provider of your choice.
+
 ### Openshift support
-You can deploy HCL Workload Automation on Openshift 4.14 or later version by following the instruction in this documentation and using helm charts. 
+You can deploy HCL Workload Automation on Openshift by following the instruction in this documentation and using helm charts. HCL Workload Automation 10.2.2 was formally tested by using Openshift 4.14
 For Server and Console component ensure to modify the value of these parameters:
 - waserver.server.exposeServiceType
 - waconsole.console.exposeServiceType
@@ -103,12 +105,12 @@ You can access the HCL Workload Automation chart and container images from the E
  
 ## Prerequisites
 Before you begin the deployment process, ensure your environment meets the following prerequisites:
-- Helm 3.0
+- Helm 3.12 or later
 - OpenSSL
 - Grafana and Prometheus for monitoring dashboard
 - Jetstack cert-manager
 - Ingress controller: to manage the ingress service, ensure an ingress controller is correctly configured. For example, to configure an NGINX ingress controller, ensure the following option is set if NGINX is installed using a Helm chart: `"controller.extraArgs.enable-ssl-passthrough"`. Refer to the [NGINX Ingress Controller documentation](https://kubernetes.github.io/ingress-nginx/) for more details.
-- Kubernetes version: >=1.15 (no specific APIs need to be enabled)
+- Kubernetes version: >=1.29 or later (no specific APIs need to be enabled)
 - `kubectl` command-line tool to control Kubernetes clusters 
 - API key for accessing HCL Entitled Registry: `hcl.cr.io`
 - Optionally, create a secret file to store passwords and use your custom certificates. For further information, see [Creating a secrets file](#creating-a-secrets-file).
@@ -159,7 +161,7 @@ For more details about the storage requirements for your persistent volume claim
 ![OpenShift](images/tagOpenShift.png "OpenShift") OpenShift (OCP)
 
 Ensure your PVC Access Mode is ReadWriteOnce.
-For more information about supported storage types, see [Storage overview | Storage | OpenShift Container Platform 4.10](https://docs.openshift.com/container-platform/4.14/storage/index.html).
+For more information about supported storage types, see [Storage overview | Storage | OpenShift Container Platform 4.14](https://docs.openshift.com/container-platform/4.14/storage/index.html).
 
 ## Resources Required
   
