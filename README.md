@@ -88,9 +88,9 @@ You can access the HCL Workload Automation chart and container images from the E
 * hclcr.io/wa/hcl-workload-automation-console:10.2.2.00.20240424
 
 ## Other supported tags
-* 10.2.2.00.20240424
 * 10.2.0.01.20231201
 * 10.2.0.00.20230728
+* 10.1.0.05.20240712
 * 10.1.0.04.20231201-amd64
 * 10.1.0.03.20230511-amd64
 * 10.1.0.02.20230301
