@@ -98,7 +98,8 @@ You can access the HCL Workload Automation chart and container images from the E
 * 10.1.0.00.20220722
 * 10.1.0.00.20220512
 * 10.1.0.00.20220304
-- 9.5.0.06.20230324
+* 9.5.0.07.20240327
+* 9.5.0.06.20230324
 * 9.5.0.06.20221216
 * 9.5.0.06.20220617
 * 9.5.0.05.20211217
@@ -169,8 +170,8 @@ For more information about supported storage types, see [Storage overview | Stor
  
 | Component | Container resource limit | Container memory request |
 |--|--|--|
-|**Server**  | CPU: 4, Memory: 16Gi |CPU: 1, Memory: 6Gi, Storage: 10Gi  |
-|**Console**  | CPU: 4, Memory: 16Gi  |CPU: 1, Memory: 4Gi, Storage: 5Gi  |
+|**Server**  | CPU: 4, Memory: 16Gi |CPU: 1, Memory: 4Gi, Storage: 10Gi  |
+|**Console**  | CPU: 4, Memory: 16Gi  |CPU: 1, Memory: 4Gi, Storage: 10Gi  |
 | **Dynamic Agent** |CPU: 1, Memory: 2Gi |CPU: 200m, Memory: 200Mi, Storage size: 2Gi  |
 
 ## Installing
@@ -235,13 +236,7 @@ Cert-manager is a Kubernetes addon that automates the management and issuance of
 
    a. `helm repo add jetstack https://charts.jetstack.io`
     
-   If you are using k8s 1.22 or later:
-    
-   b. `helm install cert-manager jetstack/cert-manager --namespace cert-manager --set installCRDs=true`	
-   
-   Otherwise if you are on k8s 1.21 or below:
-   
-   b. `helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v0.15.1 --set installCRDs=true`		
+   b. `helm install cert-manager jetstack/cert-manager --namespace cert-manager --set installCRDs=true`			
 	
 3. Create the Certificate Authority (CA) by running the following commands:
 
@@ -255,7 +250,7 @@ Cert-manager is a Kubernetes addon that automates the management and issuance of
 
 5. Create the Issuer under the namespace. Edit the issuer.yaml file with the namespace and CA key pair.
 
-    a. If you are using k8s 1.22 or later, create the issuer.yaml as follows, specifying the namespace and CA key pair:
+    a. Create the issuer.yaml as follows, specifying the namespace and CA key pair:
 	
         apiVersion: cert-manager.io/v1
         kind: Issuer
@@ -268,19 +263,6 @@ Cert-manager is a Kubernetes addon that automates the management and issuance of
           ca:
             secretName: ca-key-pair
 	    
-    a. Otherwise if you are on k8s 1.21 or below:
-	
-        apiVersion: cert-manager.io/v1alpha2
-        kind: Issuer
-        metadata:
-          labels:
-            app.kubernetes.io/name: cert-manager
-          name: wa-ca-issuer
-          namespace: <workload_automation_namespace>
-        spec:
-          ca:
-            secretName: ca-key-pair
-
     b. Run the following command to create the issuer under the namespace:		  
 
         kubectl apply -f issuer.yaml -n <workload_automation_namespace>
@@ -297,18 +279,8 @@ Create a secrets file to store passwords for the server, console and database, o
 	    metadata:
 	      name: wa-pwd-secret
 	      namespace: <workload_automation_namespace>
-	     labels:
-                app.kubernetes.io/instance wa-pwd-secret
-                app.kubernetes.io/managed-by: Helm
-                app.kubernetes.io/name: workload-automation-prod
-                environment: prod
-                helm.sh/chart: workload-automation-prod
-                release: wa-pwd-secret
-              annotations:
-                meta.helm.sh/release-name: wa-pwd-secret
-                meta.helm.sh/release-namespace: <workload_automation_namespace>
-	      type: Opaque
-              data:
+	    type: Opaque
+            data:
 	        WA_PASSWORD: <hidden_password>
 	        DB_ADMIN_PASSWORD: <hidden_password>
 	        DB_PASSWORD: <hidden_password>	
@@ -345,16 +317,6 @@ where **<my_path>** is the location path of the mysecret.yaml file.
 	    metadata:
 	      name: <release_name>-ssl-secret
 	      namespace: <workload_automation_namespace>
-   	     labels:
-                app.kubernetes.io/instance wa-pwd-secret
-                app.kubernetes.io/managed-by: Helm
-                app.kubernetes.io/name: workload-automation-prod
-                environment: prod
-                helm.sh/chart: workload-automation-prod
-                release: wa-pwd-secret
-              annotations:
-                meta.helm.sh/release-name: wa-pwd-secret
-                meta.helm.sh/release-namespace: <workload_automation_namespace>
 	    type: Opaque
 	    data:
 	       SSL_PASSWORD: <hidden_password>
@@ -366,7 +328,7 @@ where **<my_path>** is the location path of the mysecret.yaml file.
 
 ### Loading third-party certificates
 
-To add third-party certificates to the truststore, create a secret with the syntax listed below. It is recommended you create a secret for each certificate. 
+To add third-party certificates to the truststore, create a secret with the syntax listed below. It is recommended you create a secret for each certificate. You need to provide a tls.key for certificates that require a tls.key together with a tls.crt.
 
 
 		
@@ -391,7 +353,7 @@ To install a dynamic agent with remote gateway you must have a dynamic agent alr
 
 To enable the parameters for Kubernetes:
 
-Add the following parameters under the environment section of the wa-agent kubernetes service in the **docker-compose.yaml** file:** 
+Add the following parameters under the environment section of the wa-agent kubernetes service:
 
  |  Parameter          |Description              |
 | -------------------- | -------------------- |
@@ -840,7 +802,7 @@ where the logout.url string in jndiName should be replaced with the logout URL o
 
 Before you upgrade a chart, verify if there are jobs currently running and manually stop the related processes or wait until the jobs complete.	To upgrade the release <workload_automation_release_name> to a new version of the chart, run the following command from the directory where the values.yaml file is located:
 
- `helm upgrade release_name <repo_name>/hcl-workload-automation-prod -f values.yaml -n <workload_automation_namespace>`
+    helm upgrade release_name <repo_name>/hcl-workload-automation-prod -f values.yaml -n <workload_automation_namespace>
 
 If you have configured a configMaps file as described in [Installing Automation Hub integrations](installing-automation-hub-integrations), this upgrade procedure automatically upgrades any integrations or plug-ins previously installed from Automation Hub.
 
@@ -1517,8 +1479,7 @@ The Pod is based on a StatefulSet. This guarantees that each Persistent Volume i
 
 For test purposes only, you can configure the chart so that persistence is not used.
 
-HCL Workload Automation can use either dynamic provisioning or  static provisioning using a pre-created persistent volume  
-to allocate storage for each component that you deploy. You can pre-create Persistent Volumes to be bound to the StatefulSet using Label or StorageClass. It is highly recommended to use persistence with dynamic provisioning. In this case, you must have defined your own Dynamic Persistence Provider. HCL Workload Automation supports the following provisioning use cases:
+HCL Workload Automation can use either dynamic provisioning or  static provisioning using a pre-created persistent volume to allocate storage for each component that you deploy. You can pre-create Persistent Volumes to be bound to the StatefulSet using Label or StorageClass. It is highly recommended to use persistence with dynamic provisioning. In this case, you must have defined your own Dynamic Persistence Provider. HCL Workload Automation supports the following provisioning use cases:
 
 * Kubernetes dynamic volume provisioning to create both a persistent volume and a persistent volume claim.
 This type of storage uses the default storageClass defined by the Kubernetes admin or by using a custom storageClass which overrides the default. Set the values as follows:
@@ -1547,10 +1508,10 @@ For more information about all of the supported storage classes, see the table i
 If you create a storageClass object or use the default one, ensure that you have a sufficient amount of backing storage for your HCL Workload Automation components.  
 For more information about the required amount of storage you need for each component, see the [Resources Required](#resources-required) section.
 
-_Custom storage class:_  
+**_Custom storage class:_**
 Modify the the `persistence.dataPVC.storageClassName` parameter in the YAML file by specifying the custom storage class name, when you deploy the HCL Workload Automation product components.
 
-_Default storage class:_  
+**_Default storage class:_**
 Leave the values for the persistence.dataPVC.storageClassName parameter blank in the YAML file when you deploy the HCL Workload Automation product components.  
 For more information about the storage parameter values to set in the YAML file, see the tables, [Agent parameters](#agent-parameters),  [Dynamic Workload Console parameters](#dynamic-workload-console-parameters), and [Server parameters](#server-parameters) (master domain manager).
 
@@ -1649,7 +1610,7 @@ For more information about using Grafana dashboards see [Dashboards overview](ht
 
 ## Documentation
 
-To access the complete product documentation library for HCL Workload Automation, see the [online documentation](https://help.hcltechsw.com/workloadautomation/v1021/index.html).
+To access the complete product documentation library for HCL Workload Automation, see the [online documentation](https://help.hcl-software.com/workloadautomation/v1022/index.html).
 
 
 ## Troubleshooting
