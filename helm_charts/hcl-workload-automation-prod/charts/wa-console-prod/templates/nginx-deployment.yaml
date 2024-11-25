@@ -35,7 +35,7 @@ spec:
             capabilities:
               drop:
               - ALL 
-          image: "hclcr.io/wa/hcl-workload-automation-packages:10.2.2.00.20240424"
+          image: "hclcr.io/wa/hcl-workload-automation-packages:10.2.3.00.20241122"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
