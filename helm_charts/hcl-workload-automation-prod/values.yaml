@@ -14,7 +14,7 @@ global:
   defaultShardCount: 1
   enablePrometheus: true
   customPluginImageName: 
-  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.3.00.20241122
+  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.4.00.20250423
   configPlugins:
   customLabels:
     - name: "environment"
@@ -70,7 +70,7 @@ waagent:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-agent-dynamic
-    tag: 10.2.3.00.20241122
+    tag: 10.2.4.00.20250423
   persistence:
     dataPVC:
       name: data
@@ -190,7 +190,7 @@ waconsole:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-console
-    tag: 10.2.3.00.20241122
+    tag: 10.2.4.00.20250423
   persistence:
     dataPVC:
       name: data
@@ -240,7 +240,7 @@ waserver:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-server
-    tag: 10.2.3.00.20241122
+    tag: 10.2.4.00.20250423
   persistence:
     dataPVC:
       name: data
@@ -381,7 +381,7 @@ wafileproxy:
   replicaCount: 1
   image:
     repository: hclcr.io/wa/hcl-workload-automation-fileproxy
-    tag: 10.2.3.00.20241122
+    tag: 10.2.4.00.20250423
     pullPolicy: Always
   nameOverride: ""
   fullnameOverride: ""
@@ -451,7 +451,7 @@ waaida:
   aida-ad:
     image:
       repository: hclcr.io/wa/hcl-aida-ad
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -517,7 +517,7 @@ waaida:
     resolveAlertsAfterDays: 1
     image:
       repository: hclcr.io/wa/hcl-aida-exporter
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -538,7 +538,7 @@ waaida:
     recipientMailIds: "mail1@mail.com,mail2@mail.com"
     image:
       repository: hclcr.io/wa/hcl-aida-email
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -555,7 +555,7 @@ waaida:
     waConsoleCertSecretName: waconsole-cert-secret
     image:
       repository: hclcr.io/wa/hcl-aida-nginx
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -588,7 +588,7 @@ waaida:
     daysOfPrediction: 1
     image:
       repository: hclcr.io/wa/hcl-aida-orchestrator
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -604,7 +604,7 @@ waaida:
   aida-predictor:
     image:
       repository: hclcr.io/wa/hcl-aida-predictor
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -626,7 +626,7 @@ waaida:
   aida-redis:
     image:
       repository: hclcr.io/wa/hcl-aida-redis
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -643,7 +643,7 @@ waaida:
     uiLogLevel: "ERROR:*,INFO:*,-TRACE:*"
     image:
       repository: hclcr.io/wa/hcl-aida-ui
-      tag: 10.2.3.00.20241122
+      tag: 10.2.4.00.20250423
       pullPolicy: Always
     serviceAccount:
       create: false
