@@ -1641,6 +1641,15 @@ In case of problems related to deploying the product with containers, see [Troub
 
 ### Change history
 
+## Added April 2025
++ new version released
+
+## Added November 2024
++ new version released
+
+## Added April 2024
++ new version released
+
 ## Added December 2023
 * New version released
 
