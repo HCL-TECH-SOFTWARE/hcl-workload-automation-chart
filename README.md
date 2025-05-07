@@ -19,7 +19,7 @@ The information in this README contains the steps for deploying the following HC
  > **HCL Workload Automation**, which comprises master domain manager and its backup, Dynamic Workload Console, and Dynamic Agent
  
  
- For more information about HCL Workload Automation, see the product documentation library in [HCL Workload Automation Documentation](https://help.hcltechsw.com/workloadautomation/v1023/index.html).
+ For more information about HCL Workload Automation, see the product documentation library in [HCL Workload Automation Documentation](https://help.hcltechsw.com/workloadautomation/v1024/index.html).
  
 ## Details
 
@@ -28,7 +28,7 @@ By default, a single  server (master domain manager), Dynamic Workload Console (
 To achieve high availability in an HCL Workload Automation environment, the minimum base configuration is composed of 2 Dynamic Workload Consoles and 2 servers (master domain managers). For more details about HCL Workload Automation and high availability, see: 
 
 
-[An active-active high availability scenario](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ad/awsadhaloadbal.html).
+[An active-active high availability scenario](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_ad/awsadhaloadbal.html).
 
 HCL Workload Automation can be deployed across a single cluster, but you can add multiple instances of the product components by using a different namespace in the cluster. The product components can run in multiple failure zones in a single cluster.
 
@@ -746,7 +746,7 @@ To manually verify that the installation was successfully installed, you can per
 	 
         optman ls
 		
-This command lists the current values of all HCL Workload Automation global options. For more information about the global options see [Global Options - detailed description](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ad/awsadgloboptdescr.html).	
+This command lists the current values of all HCL Workload Automation global options. For more information about the global options see [Global Options - detailed description](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_ad/awsadgloboptdescr.html).	
 	
 * **Verify that the default engine connection is created from the Dynamic Workload Console**
 
@@ -1351,7 +1351,7 @@ Access the master (server or pod) and extract the CA root certificate and, to ad
 
 ### Defining a z/OS engine in the Z connector from a Dynamic Workload Console deployed on Cloud
 
-To perform this operation, see the information available at [Defining a z/OS engine in the Z connector](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ad/awsadtmpltconnfactory.html). The information at this link also applies to the cloud environment. If you want to apply the same configuration to all instances, create a configMap containing all xml files and use the `waconsole.console.libConfigName` parameter to provide the name of your  configMap.
+To perform this operation, see the information available at [Defining a z/OS engine in the Z connector](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_ad/awsadtmpltconnfactory.html). The information at this link also applies to the cloud environment. If you want to apply the same configuration to all instances, create a configMap containing all xml files and use the `waconsole.console.libConfigName` parameter to provide the name of your  configMap.
 
 
 ### Scaling the product 
@@ -1543,11 +1543,11 @@ Consider the following example:
 
 For more information, see: 
 
-[Running batch reports from the command line interface](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ref/awsrgbatchreps.html)
+[Running batch reports from the command line interface](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_ref/awsrgbatchreps.html)
 
 ## Metrics monitoring 
 
-HCL Workload Automation uses Grafana to display performance data related to the product. This data includes metrics related to the server and console application servers (WebSphere Application Server Liberty Base), your workload, your workstations, critical jobs, message queues, the database connection status, and more. Grafana is an open source tool for visualizing application metrics. Metrics provide insight into the state, health, and performance of your deployments and infrastructure. HCL Workload Automation cloud metric monitoring uses an opensource Cloud Native Computing Foundation (CNCF) project called Prometheus. It is particularly useful for collecting time series data that can be easily queried. Prometheus integrates with Grafana to visualize the metrics collected. For more information about the metrics available, see [Metrics monitoring](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ref/awsrgmonprom.html) documentation.
+HCL Workload Automation uses Grafana to display performance data related to the product. This data includes metrics related to the server and console application servers (WebSphere Application Server Liberty Base), your workload, your workstations, critical jobs, message queues, the database connection status, and more. Grafana is an open source tool for visualizing application metrics. Metrics provide insight into the state, health, and performance of your deployments and infrastructure. HCL Workload Automation cloud metric monitoring uses an opensource Cloud Native Computing Foundation (CNCF) project called Prometheus. It is particularly useful for collecting time series data that can be easily queried. Prometheus integrates with Grafana to visualize the metrics collected. For more information about the metrics available, see [Metrics monitoring](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_ref/awsrgmonprom.html) documentation.
 
 
 
@@ -1612,7 +1612,7 @@ For more information about using Grafana dashboards see [Dashboards overview](ht
 
 ## Documentation
 
-To access the complete product documentation library for HCL Workload Automation, see the [online documentation](https://help.hcl-software.com/workloadautomation/v1023/index.html).
+To access the complete product documentation library for HCL Workload Automation, see the [online documentation](https://help.hcl-software.com/workloadautomation/v1024/index.html).
 
 
 ## Troubleshooting
