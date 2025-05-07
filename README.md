@@ -902,7 +902,7 @@ The following table lists the configurable parameters of the chart relative to t
 
 
 >\(*) **Note:** for details about static agent workstation pools, see: 
-[Workstation](https://help.hcltechsw.com/workloadautomation/v95/distr/src_ref/awsrgworkstationconcept.html).
+[Workstation](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_ref/awsrgworkstationconcept.html).
 
 
 - #### Dynamic Workload Console parameters
@@ -1327,7 +1327,7 @@ To configure an on-premises agent to communicate with components in the cloud:
 3. Replace the files on the on-premises agent in the same path.
 
 **On-premises console engine connection (connection between an on-premises console with a server in the cloud):**
-1. Copy the public CA root certificate from the server. Refer to the HCL Workload Automation product documentation for details about creating custom certificates for communication between the server and the console: [Customizing certificates](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ad/awsadMDMDWCcomm.html).
+1. Copy the public CA root certificate from the server. Refer to the HCL Workload Automation product documentation for details about managing secure communication, see [Configuring secure communications](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_ad/awsadcert.html).
 
 2. To enable the changes, restart the Console workstation.
 
@@ -1404,7 +1404,7 @@ For the Dynamic Workload Console, type the following command:
     
    where, ca.crt, tls.key, and tls.crt are your customized certificates.
    
-   For details about custom certificates, see [Connection security overview](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ad/awsadconnsec.html).
+   For details about certificates, see [Configuring secure communications](https://[help.hcltechsw.com/workloadautomation/v1024/distr/src_ad/awsadcert.html]).
 
 <!-- > **Note**: Passwords for "TWSServerTrustFile.jks" and "TWSServerKeyFile.jks" files must be entered in the respective "TWSServerTrustFile.jks.pwd" and "TWSServerKeyFile.jks.pwd" files. -->
  
@@ -1457,7 +1457,7 @@ For the Dynamic Workload Console, type the following command:
     
    where, TWSClientKeyStoreJKS.sth, TWSClientKeyStore.kdb, TWSClientKeyStore.sth, TWSClientKeyStoreJKS.jks, TWSServerTrustFile.jks and TWSServerKeyFile.jks are the Container keystore and stash file containing your customized certificates.
    
-   For details about custom certificates, see [Connection security overview](https://help.hcltechsw.com/workloadautomation/v1023/distr/src_ad/awsadconnsec.html).
+For details about certificates, see [Configuring secure communications](https://[help.hcltechsw.com/workloadautomation/v1024/distr/src_ad/awsadcert.html]).
     
 
 > **Note**: Passwords for "TWSServerTrustFile.jks" and "TWSServerKeyFile.jks" files must be entered in the respective "TWSServerTrustFile.jks.pwd" and "TWSServerKeyFile.jks.pwd" files.
@@ -1619,7 +1619,7 @@ To access the complete product documentation library for HCL Workload Automation
 
 
 
-In case of problems related to deploying the product with containers, see [Troubleshooting](https://help.hcltechsw.com/workloadautomation/v95/distr/src_pi/awspitrblcontainers.html).
+In case of problems related to deploying the product with containers, see [Troubleshooting](https://help.hcltechsw.com/workloadautomation/v1024/distr/src_pi/awspitrblcontainers.html).
 
 ### Known problems
 
