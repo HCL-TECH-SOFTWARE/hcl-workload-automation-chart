@@ -14,7 +14,7 @@ To respond to the growing request to make automation opportunities more accessib
 
 HCL Workload Automation is a complete, modern solution for batch and real-time workload management. It enables organizations to gain complete visibility and control over attended or unattended workloads. From a single point of control, it supports multiple platforms and provides advanced integration with enterprise applications including ERP, Business Analytics, File Transfer, Big Data, and Cloud applications.
 
-The information in this README contains the steps for deploying the following HCL Workload Automation components using a chart and container images:
+The information in this README contains the steps for deploying the following HCL Workload Automation components using a chart and container image:
 
  > **HCL Workload Automation**, which comprises master domain manager and its backup, Dynamic Workload Console, and Dynamic Agent
  
