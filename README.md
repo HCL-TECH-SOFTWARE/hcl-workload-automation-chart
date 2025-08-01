@@ -83,11 +83,13 @@ You can access the HCL Workload Automation chart and container images from the E
 
 
 
-* hclcr.io/wa/hcl-workload-automation-agent-dynamic: 10.2.4.00.20250423
-* hclcr.io/wa/hcl-workload-automation-server: 10.2.4.00.20250423
-* hclcr.io/wa/hcl-workload-automation-console: 10.2.4.00.20250423
+* hclcr.io/wa/hcl-workload-automation-agent-dynamic: 10.2.5.00.20250804
+* hclcr.io/wa/hcl-workload-automation-server: 10.2.5.00.20250804
+* hclcr.io/wa/hcl-workload-automation-console: 10.2.5.00.20250804
 
 ## Other supported tags
+
+* 10.2.4.00.20250423
 * 10.2.3.00.20241122
 * 10.2.2.00.20240424
 * 10.2.1.00.20231201
@@ -1667,7 +1669,10 @@ In case of problems related to deploying the product with containers, see [Troub
 
 ### Change history
 
-## Added April 2025
+### Added August 2025 
+-   new version released
+
+### Added April 2025 
 + new version released
 
 ## Added November 2024
