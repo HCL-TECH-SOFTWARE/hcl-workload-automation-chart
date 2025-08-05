@@ -10,7 +10,7 @@ global:
 replicaCount: 1
 image:
   repository: hclcr.io/wa/hcl-workload-automation-fileproxy
-  tag: 10.2.4.00.20250423
+  tag: 10.2.5.00.20250804
   pullPolicy: Always
 nameOverride: ""
 fullnameOverride: ""

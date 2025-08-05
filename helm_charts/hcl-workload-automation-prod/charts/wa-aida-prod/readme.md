@@ -155,7 +155,7 @@ If needed, modify the Secrets files to store the passwords for aida-redis and ai
     -	`redis-pwd-secret` is the value of the `global. redisPwdSecretName` parameter defined in the [Configuration Parameters](#configuration-parameters) section; 
     -	`<hidden_password>` can be changed; to enter an encrypted password, run the following command in a UNIX shell and copy the output into the yaml file:
 		`echo -n 'mypassword' | base64v`
-		The default password is “foobared�?.
+		The default password is “foobared”.
  2.	Modify the `aida-helm/charts/aida-email/templates/email-pwd-secret.yaml` file that stores aida-email sender email password. The `email-pwd-secret.yaml file` has the following content: 
 	`apiVersion: v1` 
 	`kind: Secret` 
@@ -168,7 +168,7 @@ If needed, modify the Secrets files to store the passwords for aida-redis and ai
 	-	`email-pwd-secret` is the value of the `global.senderEmailPwdSecretName` parameter defined in the  [Configuration Parameters](#configuration-parameters) section; 
 	-	`<hidden_password>` can be changed; to enter an encrypted password, run the following command in a UNIX shell and copy the output into the yaml file:
 		`echo -n 'mypassword' | base64v`
-		The default password is “smtpPassword�?. 
+		The default password is “smtpPassword”. 
 ###  Verifying the installation
 After the deployment procedure is complete, you can validate the deployment to ensure that AIDA is working. 
 To manually verify that AIDA was successfully installed, you can perform the following checks: 
