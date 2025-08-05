@@ -10,7 +10,7 @@ global:
   license: "not accepted"
   serviceAccountName:
   customPluginImageName: 
-  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.4.00.20250423
+  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.5.00.20250804
   configPlugins:
   language: "en"
   enablePrometheus: true
@@ -20,7 +20,7 @@ global:
 replicaCount: 1
 image:
   repository: hclcr.io/wa/hcl-workload-automation-console
-  tag: 10.2.4.00.20250423
+  tag: 10.2.5.00.20250804
   pullPolicy: Always
 licenseType: "PVU"
 runAsUser: 999
