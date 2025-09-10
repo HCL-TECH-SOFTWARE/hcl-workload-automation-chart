@@ -652,40 +652,30 @@ Proceed to deploy the product components. After the deployment, you can include 
 
 ### Deploying the product components		
 
-To deploy the HCL Workload Automation components, ensure you have first downloaded the chart from the HCL Entitled Registry: `hclcr.io` and have unpacked it to a local directory. If you already have the chart then update it.
+To deploy the HCL Workload Automation components, ensure you have first downloaded the chart from the HCL Entitled Registry: `hclcr.io` and have unpacked it to a local directory. If you already have the chart then update it. The username to log in the HCL Entitled Registry is the same username used to login into https://hclcr.io/harbor/projects, and the password is the HCL Entitled Registry CLI secret that can be found in the User Profile.
 
 1. Download the chart from the repository and unpack it to a local directory or, if you already have the chart, update it.
 
    **First time installation and configuration of the chart:**
 
-   a. Add the repository:
+  1. Log into the registry:
+ 
+        helm registry login hclcr.io  
    
-        helm repo add <repo_name> https://hclcr.io/chartrepo/wa --username <username> --password <api_key>, where <repo_name> represents the name of the chosen local repository
-   
-   b.  Update the Helm chart:
-   
-        helm repo update 
-   
-   c. Pull the Helm chart:
+2. Pull the Helm chart:
 
-
-
-
-
-        helm pull <repo_name>/hcl-workload-automation-prod
+        helm pull oci://hclcr.io/wa/hcl-workload-automation-prod
 	
->**Note:** If you want to download a specific version of the chart use the --version option in the helm pull command.
+>**Note:** If you want to download a specific version of the chart use the --version option in the helm pull command. (comment)
       
      
-**Update your chart:**
-
-        helm repo update 	 
+**Customize the deployment**
 		
-1. Customize the deployment. Configure each product component by adjusting the values in the `values.yaml` file. See these parameters and their default values in [Configuration Parameters](#configuration-parameters). By default, a single server, console, and agent is installed.
+Configure each product component by adjusting the values in the `values.yaml` file. See these parameters and their default values in [Configuration Parameters](#configuration-parameters). By default, a single server, console, and agent is installed.
 
 >**Note:**  If you specify the `waconsole.engineHostName` and `waconsole.enginePort` parameters in the `values.yaml` file, only a single engine connection related to an engine external to the cluster is automatically defined in the Dynamic Workload Console using the values assigned to these parameters. By default, the values for these parameters are blank, and the server is deployed within the cluster and the engine connection is related to the server in the cluster. If, instead, you deploy both a server within the cluster and one external to the cluster, a single engine connection is automatically created in the console using the values of the parameters related to the external engine (server). If you require an engine connection to the server deployed within the cluster, you must define the connection manually. 
 	 
-3. Deploy the instance by running the following command: 
+Deploy the instance by running the following command: 
 
 
 
