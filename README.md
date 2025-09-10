@@ -671,7 +671,7 @@ To deploy the HCL Workload Automation components, ensure you have first download
      
 **Customize the deployment**
 		
-Configure each product component by adjusting the values in the `values.yaml` file. See these parameters and their default values in [Configuration Parameters](#configuration-parameters). By default, a single server, console, and agent is installed.
+To configure product components, modify the parameters within the `values.yaml` file. For a complete list of available parameters and the corresponding default values, refer to [Configuration Parameters](#configuration-parameters). The default installation deploys a single server, console, and agent.
 
 >**Note:**  If you specify the `waconsole.engineHostName` and `waconsole.enginePort` parameters in the `values.yaml` file, only a single engine connection related to an engine external to the cluster is automatically defined in the Dynamic Workload Console using the values assigned to these parameters. By default, the values for these parameters are blank, and the server is deployed within the cluster and the engine connection is related to the server in the cluster. If, instead, you deploy both a server within the cluster and one external to the cluster, a single engine connection is automatically created in the console using the values of the parameters related to the external engine (server). If you require an engine connection to the server deployed within the cluster, you must define the connection manually. 
 	 
