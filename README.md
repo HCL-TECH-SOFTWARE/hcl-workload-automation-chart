@@ -83,12 +83,13 @@ You can access the HCL Workload Automation chart and container images from the E
 
 
 
-* hclcr.io/wa/hcl-workload-automation-agent-dynamic: 10.2.5.00.20250804
-* hclcr.io/wa/hcl-workload-automation-server: 10.2.5.00.20250804
-* hclcr.io/wa/hcl-workload-automation-console: 10.2.5.00.20250804
+* hclcr.io/wa/hcl-workload-automation-agent-dynamic: 10.2.6.00.20251212
+* hclcr.io/wa/hcl-workload-automation-server: 10.2.6.00.20251212
+* hclcr.io/wa/hcl-workload-automation-console: 10.2.6.00.20251212
 
 ## Other supported tags
 
+* 10.2.5.00.20250804
 * 10.2.4.00.20250423
 * 10.2.3.00.20241122
 * 10.2.2.00.20240424
