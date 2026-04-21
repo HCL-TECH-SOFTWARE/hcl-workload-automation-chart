@@ -124,21 +124,21 @@ from `LoadBalancer` to `Routes`
 
 You can access AIDA subcharts and container images from the Entitled Registry (online installation). See [Creating the Secret](#creating-the-secret) for more information about accessing the registry. The images are as follows:
 
- - ``hclcr.io/wa/aida-ad:10.2.1`` 
- - ``hclcr.io/wa/aida-exporter:10.2.1``
- - ``hclcr.io/wa/aida-email:10.2.1``
- - ``hclcr.io/wa/aida-nginx:10.2.1``
- - ``hclcr.io/wa/aida-orchestrator:10.2.1``
- - ``hclcr.io/wa/aida-predictor:10.2.1``
- - ``hclcr.io/wa/aida-redis:10.2.1``
- - ``hclcr.io/wa/aida-ui:10.2.1``
+ - ``hclcr.io/wa/aida-ad:10.2.7`` 
+ - ``hclcr.io/wa/aida-exporter:10.2.7``
+ - ``hclcr.io/wa/aida-email:10.2.7``
+ - ``hclcr.io/wa/aida-nginx:10.2.7``
+ - ``hclcr.io/wa/aida-orchestrator:10.2.7``
+ - ``hclcr.io/wa/aida-predictor:10.2.7``
+ - ``hclcr.io/wa/aida-redis:10.2.7``
+ - ``hclcr.io/wa/aida-ui:10.2.7``
  
  
 
 ##  Prerequisites
 AIDA requires:
 
- -  HCL Workload Automation V10.1 or higher exposed metrics. For information about HCL Workload Automation exposed metrics, see [Exposing metrics to monitor your workload](https://help.hcltechsw.com/workloadautomation/v102/distr/src_ref/awsrgmonprom.html).   
+ -  HCL Workload Automation V10.1 or higher exposed metrics. For information about HCL Workload Automation exposed metrics, see [Exposing metrics to monitor your workload](https://help.hcltechsw.com/workloadautomation/v1027/distr/src_ref/awsrgmonprom.html).   
  -  API key for accessing the Entitled Registry: hclcr.io
  -  External container image for OpenSearch 2.3.0 (an Elasticsearch based technology)
  -  Supported browsers are: 
@@ -686,4 +686,4 @@ AIDA supports only ReadWriteOnce (RWO) access mode. The volume can be mounted as
 
 ##  Documentation
 
-For more information about AIDA, see [AIDA User's Guide](https://help.hcltechsw.com/workloadautomation/v102/common/src_ai/awsaimst_welcome.html).
+For more information about AIDA, see [AIDA User's Guide](https://help.hcltechsw.com/workloadautomation/v1027/common/src_ai/awsaimst_welcome.html).
