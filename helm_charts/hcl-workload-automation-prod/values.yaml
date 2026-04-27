@@ -10,11 +10,27 @@ global:
   serviceAccountName: wauser
   useClusterRole: false
   aidaEngineLogLevel: "INFO"
+  # Geographical data
+  certificateDetails:
+    organization: "HCL-Software"
+    locality: "Rome"
+    province: "RM"
+    country: "IT"
+
+    # Common Names
+    agentCommonName: "waagent.test.it"
+    consoleCommonName: "waconsole.test.it"
+    serverCommonName: "waserver.test.it"
+    fileproxyCommonName: "wafileproxy.test.it"
+
+  # Issuer config
+  issuerName: "wa-ca-issuer-test"
+  issuerKind: "Issuer-test"
   redisPwd: "default"
   defaultShardCount: 1
   enablePrometheus: true
-  customPluginImageName: 
-  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.6.00.20251212
+  customPluginImageName:
+  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.7.00.20260424
   configPlugins:
   customLabels:
     - name: "environment"
@@ -53,7 +69,7 @@ waagent:
     #      - podSelector:
     #          matchLabels:
     #            app.kubernetes.io/name: waserver
-    #    
+    #
     #  - name: dns
     #    egress:
     #    - to:
@@ -64,13 +80,13 @@ waagent:
     #        - port: 53
     #          protocol: UDP
     #        - port: 53
-    #          protocol: TCP 
+    #          protocol: TCP
     nodeAffinityRequired: {}
     tz: null
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-agent-dynamic
-    tag: 10.2.6.00.20251212
+    tag: 10.2.7.00.20260424
   persistence:
     dataPVC:
       name: data
@@ -91,10 +107,10 @@ waagent:
       #     secretName: custom-secret
       #     defaultMode: 0744
       # - name: nfs-volume
-      #   nfs: 
+      #   nfs:
       #     # URL for the NFS server
       #     server: <nfs_server> # Change this!
-      #     path: /
+    #     path: /
     extraVolumeMounts: []
       # - name: custom-volume-1
       #   mountPath: /custom/mount/path-1
@@ -102,7 +118,7 @@ waagent:
       # - name: custom-volume-2
       #   mountPath: /custom/mount/path-2
       # - name: nfs-volume
-      #   mountPath: /path/nfs
+    #   mountPath: /path/nfs
   replicaCount: 1
   resources:
     limits:
@@ -157,7 +173,7 @@ waconsole:
       #service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
       #service.beta.kubernetes.io/aws-load-balancer-internal: "true"
       #service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-      #networking.gke.io/load-balancer-type: "Internal"
+    #networking.gke.io/load-balancer-type: "Internal"
     networkpolicyEgress: {}
     # Allows all  Egress to mdm.
     #  - name: to-mdm
@@ -166,7 +182,7 @@ waconsole:
     #      - podSelector:
     #          matchLabels:
     #            app.kubernetes.io/name: waserver
-    #    
+    #
     #  - name: dns
     #    egress:
     #    - to:
@@ -177,7 +193,7 @@ waconsole:
     #        - port: 53
     #          protocol: UDP
     #        - port: 53
-    #          protocol: TCP 
+    #          protocol: TCP
     nodeAffinityRequired: {}
     libConfigName: null
     livenessProbe:
@@ -185,12 +201,12 @@ waconsole:
     pwdSecretName: wa-pwd-secret
     useCustomizedCert: false
     certDuration: 2160h # 90d
-    certRenewBefore: 360h # 15d  
+    certRenewBefore: 360h # 15d
     tz:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-console
-    tag: 10.2.6.00.20251212
+    tag: 10.2.7.00.20260424
   persistence:
     dataPVC:
       name: data
@@ -211,10 +227,10 @@ waconsole:
       #     secretName: custom-secret
       #     defaultMode: 0744
       # - name: nfs-volume
-      #   nfs: 
+      #   nfs:
       #     # URL for the NFS server
       #     server: <nfs_server> # Change this!
-      #     path: /
+    #     path: /
     extraVolumeMounts: []
       # - name: custom-volume-1
       #   mountPath: /custom/mount/path-1
@@ -222,7 +238,7 @@ waconsole:
       # - name: custom-volume-2
       #   mountPath: /custom/mount/path-2
       # - name: nfs-volume
-      #   mountPath: /path/nfs
+    #   mountPath: /path/nfs
   replicaCount: 1
   resources:
     limits:
@@ -240,7 +256,7 @@ waserver:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-server
-    tag: 10.2.6.00.20251212
+    tag: 10.2.7.00.20260424
   persistence:
     dataPVC:
       name: data
@@ -261,10 +277,10 @@ waserver:
       #     secretName: custom-secret
       #     defaultMode: 0744
       # - name: nfs-volume
-      #   nfs: 
+      #   nfs:
       #     # URL for the NFS server
       #     server: <nfs_server> # Change this!
-      #     path: /
+    #     path: /
     extraVolumeMounts: []
       # - name: custom-volume-1
       #   mountPath: /custom/mount/path-1
@@ -272,7 +288,7 @@ waserver:
       # - name: custom-volume-2
       #   mountPath: /custom/mount/path-2
       # - name: nfs-volume
-      #   mountPath: /path/nfs
+    #   mountPath: /path/nfs
   enableBmEventsLogging: false
   bmEvents: |-
     OPTIONS=MASTER
@@ -293,7 +309,7 @@ waserver:
     jobLog:
       type: memory
       corePoolSize: 50
-    ftaName: 
+    ftaName:
     agentName: WA_SAGT
     certSecretName: waserver-cert-secret
     company: my-company
@@ -340,7 +356,7 @@ waserver:
       #service.beta.kubernetes.io/aws-load-balancer-type: nlb
       #service.beta.kubernetes.io/aws-load-balancer-internal: "true"
       #service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-      #networking.gke.io/load-balancer-type: "Internal"
+    #networking.gke.io/load-balancer-type: "Internal"
     networkpolicyEgress: {}
     # Allows all  Egress to mdm.
     #  - name: to-mdm
@@ -349,7 +365,7 @@ waserver:
     #      - podSelector:
     #          matchLabels:
     #            app.kubernetes.io/name: waserver
-    #    
+    #
     #  - name: dns
     #    egress:
     #    - to:
@@ -360,7 +376,7 @@ waserver:
     #        - port: 53
     #          protocol: UDP
     #        - port: 53
-    #          protocol: TCP 
+    #          protocol: TCP
     nodeAffinityRequired: {}
     libConfigName: null
     licenseServerId: null
@@ -375,13 +391,13 @@ waserver:
     tz: null
     useCustomizedCert: false
     certDuration: 2160h # 90d
-    certRenewBefore: 360h # 15d    
+    certRenewBefore: 360h # 15d
 wafileproxy:
   enableFileProxy: false
   replicaCount: 1
   image:
     repository: hclcr.io/wa/hcl-workload-automation-fileproxy
-    tag: 10.2.6.00.20251212
+    tag: 10.2.7.00.20260424
     pullPolicy: Always
   nameOverride: ""
   fullnameOverride: ""
@@ -390,7 +406,7 @@ wafileproxy:
     certSecretName: wa-fileproxy-cert
     useCustomizedCert: false
     certDuration: 2160h # 90d
-    certRenewBefore: 360h # 15d   
+    certRenewBefore: 360h # 15d
     containerDebug: false
     port: 44444
     route:
@@ -403,14 +419,14 @@ wafileproxy:
       #service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
       #service.beta.kubernetes.io/aws-load-balancer-internal: "true"
       #service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-      #networking.gke.io/load-balancer-type: "Internal"
+    #networking.gke.io/load-balancer-type: "Internal"
   podAnnotations: {}
   podSecurityContext: {}
-    # fsGroup: 2000
-  securityContext: 
+  # fsGroup: 2000
+  securityContext:
     capabilities:
       drop:
-      - ALL
+        - ALL
     readOnlyRootFilesystem: false
     runAsNonRoot: true
     runAsUser: 999
@@ -418,9 +434,9 @@ wafileproxy:
     className:
     annotations: {}
       # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
+    # kubernetes.io/tls-acme: "true"
     hosts:
-      - host: 
+      - host:
         paths: []
     tls: []
     #  - secretName: chart-example-tls
@@ -436,7 +452,7 @@ wafileproxy:
     #   memory: 128Mi
     # requests:
     #   cpu: 100m
-    #   memory: 128Mi
+  #   memory: 128Mi
   autoscaling:
     enabled: false
     minReplicas: 1
@@ -451,7 +467,7 @@ waaida:
   aida-ad:
     image:
       repository: hclcr.io/wa/hcl-aida-ad
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -517,7 +533,7 @@ waaida:
     resolveAlertsAfterDays: 1
     image:
       repository: hclcr.io/wa/hcl-aida-exporter
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -538,7 +554,7 @@ waaida:
     recipientMailIds: "mail1@mail.com,mail2@mail.com"
     image:
       repository: hclcr.io/wa/hcl-aida-email
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -555,7 +571,7 @@ waaida:
     waConsoleCertSecretName: waconsole-cert-secret
     image:
       repository: hclcr.io/wa/hcl-aida-nginx
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -575,7 +591,7 @@ waaida:
       #service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
       #service.beta.kubernetes.io/aws-load-balancer-internal: "true"
       #service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-      #networking.gke.io/load-balancer-type: "Internal"
+    #networking.gke.io/load-balancer-type: "Internal"
     resources:
       limits:
         cpu: 1
@@ -588,7 +604,7 @@ waaida:
     daysOfPrediction: 1
     image:
       repository: hclcr.io/wa/hcl-aida-orchestrator
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -604,7 +620,7 @@ waaida:
   aida-predictor:
     image:
       repository: hclcr.io/wa/hcl-aida-predictor
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -626,7 +642,7 @@ waaida:
   aida-redis:
     image:
       repository: hclcr.io/wa/hcl-aida-redis
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -643,7 +659,7 @@ waaida:
     uiLogLevel: "ERROR:*,INFO:*,-TRACE:*"
     image:
       repository: hclcr.io/wa/hcl-aida-ui
-      tag: 10.2.6.00.20251212
+      tag: 10.2.7.00.20260424
       pullPolicy: Always
     serviceAccount:
       create: false
