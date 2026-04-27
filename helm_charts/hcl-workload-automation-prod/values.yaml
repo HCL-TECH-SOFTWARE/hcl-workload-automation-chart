@@ -11,21 +11,11 @@ global:
   useClusterRole: false
   aidaEngineLogLevel: "INFO"
   # Geographical data
-  certificateDetails:
+  certManager:
     organization: "HCL-Software"
     locality: "Rome"
-    province: "RM"
+    province: "Lazio"
     country: "IT"
-
-    # Common Names
-    agentCommonName: "waagent.test.it"
-    consoleCommonName: "waconsole.test.it"
-    serverCommonName: "waserver.test.it"
-    fileproxyCommonName: "wafileproxy.test.it"
-
-  # Issuer config
-  issuerName: "wa-ca-issuer-test"
-  issuerKind: "Issuer-test"
   redisPwd: "default"
   defaultShardCount: 1
   enablePrometheus: true
@@ -37,6 +27,9 @@ global:
       value: "prod"
   routeType: passthrough # reencrypt
 waagent:
+  agentCommonName: "waagent"
+  issuerName: "wa-ca-issuer"
+  issuerKind: "Issuer"
   enableAgent: true
   licenseType: "PERJOB"
   runAsUser: 999
@@ -128,6 +121,9 @@ waagent:
       cpu: 200m
       memory: 200Mi
 waconsole:
+  consoleCommonName: "waconsole"
+  issuerName: "wa-ca-issuer"
+  issuerKind: "Issuer"
   enableConsole: true
   enableNginxServer: true
   runAsUser: 999
@@ -248,6 +244,10 @@ waconsole:
       cpu: 1
       memory: 4Gi
 waserver:
+  serverCommonName: "waserver"
+  agentextCommonName: "waagent"
+  issuerName: "wa-ca-issuer"
+  issuerKind: "Issuer"
   enableServer: true
   licenseType: "PERJOB"
   runAsUser: 999
@@ -393,6 +393,9 @@ waserver:
     certDuration: 2160h # 90d
     certRenewBefore: 360h # 15d
 wafileproxy:
+  fileproxyCommonName: "wafileproxy"
+  issuerName: "wa-ca-issuer"
+  issuerKind: "Issuer"
   enableFileProxy: false
   replicaCount: 1
   image:
