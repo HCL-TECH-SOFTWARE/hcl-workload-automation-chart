@@ -264,11 +264,11 @@ spec:
           value: {{ $packagesUrl }}packages.json
         {{- end }}
         - name: SSL_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: {{ .Release.Name }}-ssl-secret
-            key: SSL_PASSWORD
-            optional: true
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-ssl-secret
+              key: SSL_PASSWORD
+              optional: true
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         securityContext:
