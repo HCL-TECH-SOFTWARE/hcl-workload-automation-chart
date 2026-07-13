@@ -116,6 +116,8 @@ Before you begin the deployment process, ensure your environment meets the follo
 - Grafana and Prometheus for monitoring dashboard
 - Jetstack cert-manager
 - Ingress controller: to manage the ingress service, ensure an ingress controller is correctly configured. For example, to configure an NGINX ingress controller, ensure the following option is set if NGINX is installed using a Helm chart: `"controller.extraArgs.enable-ssl-passthrough"`. Refer to the [NGINX Ingress Controller documentation](https://kubernetes.github.io/ingress-nginx/) for more details.
+- Gateway API: to route external traffic instead of using Ingress, ensure the Gateway API CRDs and a compatible controller are correctly configured. For example, to configure an Envoy Gateway controller, ensure the GatewayClass and HTTPRoute resources are properly initialized. Refer to the [Gateway API documentation] (https://gateway-api.sigs.k8s.io/docs/introduction/) for more information.
+>**Note**: While the server and the console components can operate in mismatched modes, implementing the Gateway API requires a complete redeployment of the specific component using the Gateway API.
 - Kubernetes version: >=1.29 or later (no specific APIs need to be enabled)
 - `kubectl` command-line tool to control Kubernetes clusters 
 - API key for accessing HCL Entitled Registry: `hcl.cr.io`
