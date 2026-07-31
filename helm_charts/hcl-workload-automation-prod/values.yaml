@@ -7,20 +7,20 @@
 global:
   language: en
   license: not accepted
-  serviceAccountName: wauser
-  useClusterRole: false
-  aidaEngineLogLevel: "INFO"
-  # Geographical data
+  #Geographical data
   certManager:
     organization: "HCL-Software"
     locality: "Rome"
     province: "Lazio"
     country: "IT"
+  serviceAccountName: wauser
+  useClusterRole: false
+  aidaEngineLogLevel: "INFO"
   redisPwd: "default"
   defaultShardCount: 1
   enablePrometheus: true
   customPluginImageName:
-  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.7.00.20260424.amd64
+  pluginImageName: hclcr.io/wa/hcl-workload-automation-plugins:10.2.8.00.20260727
   configPlugins:
   customLabels:
     - name: "environment"
@@ -28,8 +28,12 @@ global:
   routeType: passthrough # reencrypt
 waagent:
   agentCommonName: "waagent"
+  customDnsOnly: false
+  addCustomDns: false
+  customDns: []
   issuerName: "wa-ca-issuer"
   issuerKind: "Issuer"
+  issuerGroup: ""
   enableAgent: true
   licenseType: "PERJOB"
   runAsUser: 999
@@ -79,7 +83,7 @@ waagent:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-agent-dynamic
-    tag: 10.2.7.00.20260424.amd64
+    tag: 10.2.8.00.20260727
   persistence:
     dataPVC:
       name: data
@@ -111,7 +115,7 @@ waagent:
       # - name: custom-volume-2
       #   mountPath: /custom/mount/path-2
       # - name: nfs-volume
-    #   mountPath: /path/nfs
+      #   mountPath: /path/nfs
   replicaCount: 1
   resources:
     limits:
@@ -122,10 +126,16 @@ waagent:
       memory: 200Mi
 waconsole:
   consoleCommonName: "waconsole"
+  customDnsOnly: false
+  addCustomDns: false
+  customDns: []
   issuerName: "wa-ca-issuer"
   issuerKind: "Issuer"
+  issuerGroup: ""
+  loadBalancerIP: ""
   enableConsole: true
   enableNginxServer: true
+  servicePort: 9443
   runAsUser: 999
   fsGroupId: 999
   supplementalGroupId:
@@ -145,10 +155,10 @@ waconsole:
       alternatePort:
       server:
       sslConnection: false
-      tsName: null
-      tsPath: null
-      tsTempName: null
-      tssbspace: null
+      tsName: 
+      tsPath: 
+      tsTempName: 
+      tssbspace: 
       type: DB2
       usepartitioning: true
       user: db2inst1
@@ -161,6 +171,20 @@ waconsole:
       hostname:
       className:
       secretName: wa-console-ingress-secret
+    gatewayApi:
+      enabled: true
+      skipLibraryCheck: false
+      gatewayName: ""
+      gatewayNamespace: ""
+      parentRefs: []
+      hostnames: []
+      pathPrefix: "/"
+      annotations: {}
+      backendConfig: {}
+      backendTLSPolicy:
+        enabled: true
+        caCertificateSecretName:
+        hostname:
     exposeServiceType: Ingress
     exposeServiceAnnotation: {}
       #cert-manager.io/issuer: wa-ca-issuer
@@ -202,7 +226,7 @@ waconsole:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-console
-    tag: 10.2.7.00.20260424.amd64
+    tag: 10.2.8.00.20260727
   persistence:
     dataPVC:
       name: data
@@ -246,9 +270,16 @@ waconsole:
 waserver:
   serverCommonName: "waserver"
   agentextCommonName: "waagent"
+  customDnsOnly: false
+  addCustomDns: false
+  customDns: []
   issuerName: "wa-ca-issuer"
   issuerKind: "Issuer"
+  issuerGroup: ""
+  loadBalancerIP: ""
   enableServer: true
+  agentSsl: #used to install agent with AGENT_SSL_PASSWORD secret as tls.sth, if missing
+    password: ""
   licenseType: "PERJOB"
   runAsUser: 999
   fsGroupId: 999
@@ -256,7 +287,7 @@ waserver:
   image:
     pullPolicy: Always
     repository: hclcr.io/wa/hcl-workload-automation-server
-    tag: 10.2.7.00.20260424.amd64
+    tag: 10.2.8.00.20260727
   persistence:
     dataPVC:
       name: data
@@ -350,6 +381,20 @@ waserver:
       className:
       secretName: wa-server-ingress-secret
       enableSSLPassthrough: false
+    gatewayApi:
+      enabled: true
+      skipLibraryCheck: false
+      gatewayName: ""
+      gatewayNamespace: ""
+      parentRefs: []
+      hostnames: []
+      pathPrefix: "/"
+      annotations: {}
+      backendConfig: {}
+      backendTLSPolicy:
+        enabled: true
+        caCertificateSecretName:
+        hostname:
     exposeServiceType: Ingress
     exposeServiceAnnotation: {}
       #cert-manager.io/issuer: wa-ca-issuer
@@ -394,13 +439,18 @@ waserver:
     certRenewBefore: 360h # 15d
 wafileproxy:
   fileproxyCommonName: "wafileproxy"
+  customDnsOnly: false
+  addCustomDns: false
+  customDns: []
   issuerName: "wa-ca-issuer"
   issuerKind: "Issuer"
+  issuerGroup: ""
+  loadBalancerIP: ""
   enableFileProxy: false
   replicaCount: 1
   image:
     repository: hclcr.io/wa/hcl-workload-automation-fileproxy
-    tag: 10.2.7.00.20260424.amd64
+    tag: 10.2.8.00.20260727
     pullPolicy: Always
   nameOverride: ""
   fullnameOverride: ""
@@ -414,6 +464,20 @@ wafileproxy:
     port: 44444
     route:
       enabled: false
+    gatewayApi:
+      enabled: true
+      skipLibraryCheck: false
+      gatewayName: ""
+      gatewayNamespace: ""
+      parentRefs: []
+      hostnames: []
+      pathPrefix: "/"
+      annotations: {}
+      backendConfig: {}
+      backendTLSPolicy:
+        enabled: true
+        caCertificateSecretName:
+        hostname:
     exposeServiceType: Ingress
     exposeServiceAnnotation: {}
       #cert-manager.io/issuer: wa-ca-issuer
@@ -429,7 +493,7 @@ wafileproxy:
   securityContext:
     capabilities:
       drop:
-        - ALL
+      - ALL
     readOnlyRootFilesystem: false
     runAsNonRoot: true
     runAsUser: 999
@@ -470,7 +534,7 @@ waaida:
   aida-ad:
     image:
       repository: hclcr.io/wa/hcl-aida-ad
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -536,7 +600,7 @@ waaida:
     resolveAlertsAfterDays: 1
     image:
       repository: hclcr.io/wa/hcl-aida-exporter
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -557,7 +621,7 @@ waaida:
     recipientMailIds: "mail1@mail.com,mail2@mail.com"
     image:
       repository: hclcr.io/wa/hcl-aida-email
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -571,10 +635,11 @@ waaida:
         cpu: 200m
         memory: 0.5Gi
   aida-nginx:
+    loadBalancerIP: ""
     waConsoleCertSecretName: waconsole-cert-secret
     image:
       repository: hclcr.io/wa/hcl-aida-nginx
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -607,7 +672,7 @@ waaida:
     daysOfPrediction: 1
     image:
       repository: hclcr.io/wa/hcl-aida-orchestrator
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -623,7 +688,7 @@ waaida:
   aida-predictor:
     image:
       repository: hclcr.io/wa/hcl-aida-predictor
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -645,7 +710,7 @@ waaida:
   aida-redis:
     image:
       repository: hclcr.io/wa/hcl-aida-redis
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
@@ -662,7 +727,7 @@ waaida:
     uiLogLevel: "ERROR:*,INFO:*,-TRACE:*"
     image:
       repository: hclcr.io/wa/hcl-aida-ui
-      tag: 10.2.7.00.20260424.amd64
+      tag: 10.2.8.00.20260727
       pullPolicy: Always
     serviceAccount:
       create: false
