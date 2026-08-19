@@ -32,5 +32,4 @@ spec:
     app.kubernetes.io/name: "{{ include "wa.appName" . }}"
     app.kubernetes.io/instance: "{{ .Release.Name }}"
     waservertype: master
-{{- end }}    
-  
+{{- end }}
