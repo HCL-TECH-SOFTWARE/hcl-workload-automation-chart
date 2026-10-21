@@ -875,6 +875,7 @@ The following tables list the configurable parameters of the chart, **values.yam
 - **[Dynamic Workload Console parameters](#dynamic-workload-console-parameters)**
 - **[Server parameters](#server-parameters)** (master domain manager)  
 
+
 &nbsp;  
 -  #### Global parameters
 The following table lists the global configurable parameters of the chart relative to all product components and an example of their values:
@@ -1568,9 +1569,9 @@ customDns:
  ``` 
 
 
-### Managing your custom certificates (DEPRECATED STARTING FROM V 10)
+### Managing your custom certificates (DEPRECATED STARTING FROM V 10.2.1)
 
-This procedure is deprecated starting from v 10. Use the [Managing custom PEM certificates](#managing-custom-PEM-certificates) procedure instead. 
+This procedure is deprecated starting from v 10.2.1. Use the [Managing custom PEM certificates](#managing-custom-PEM-certificates) procedure instead. 
 Create a secret containing the customized files that will replace the Server default ones in the \<workload_automation_namespace>. Customized files must have the same name as the default ones.
 
   * TWSClientKeyStoreJKS.sth
@@ -1761,7 +1762,9 @@ To access the complete product documentation library for HCL Workload Automation
 
 
 ## Troubleshooting
-
+ ####Resolving pod restarts during initial deployment
+During the initial deployment of HCL Workload Automation, database creation and application setup can take longer than default Helm chart probe thresholds. If readiness or liveness probes time out before this initial setup completes, Kubernetes restarts the pod, interrupting deployment finalization.
+**Workaround**: Before deploying, increase the `readinessProbe.initialDelaySeconds` and `livenessProbe.initialDelaySeconds` parameters in the **values.yaml** file.
 
 
 In case of problems related to deploying the product with containers, see [Troubleshooting](https://help.hcltechsw.com/workloadautomation/v1028/distr/src_pi/awspitrblcontainers.html).
